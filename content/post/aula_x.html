@@ -1,0 +1,62 @@
+---
+title: "Aulas X - One-way ANOVA"
+author: "Rafael Bassi Stern"
+date: 2018-06-04
+bibliography: ipaee.bib
+output: html_document
+---
+
+
+
+<pre class="r"><code>library(tidyverse)
+milho = read.csv(&quot;./data/milho.csv&quot;)
+milho = as.tibble(milho)
+
+teste_aov = aov(Colheita ~ Variedade, data = milho)
+teste_aov</code></pre>
+<pre><code>## Call:
+##    aov(formula = Colheita ~ Variedade, data = milho)
+## 
+## Terms:
+##                 Variedade Residuals
+## Sum of Squares     56.375    34.500
+## Deg. of Freedom         3         4
+## 
+## Residual standard error: 2.936835
+## Estimated effects may be unbalanced</code></pre>
+<pre class="r"><code>teste_tukey = TukeyHSD(x = teste_aov,
+                       c(&quot;Variedade&quot;),
+                       conf.level=0.9)
+teste_tukey</code></pre>
+<pre><code>##   Tukey multiple comparisons of means
+##     90% family-wise confidence level
+## 
+## Fit: aov(formula = Colheita ~ Variedade, data = milho)
+## 
+## $Variedade
+##     diff        lwr       upr     p adj
+## B-A  2.5  -7.024103 12.024103 0.8291950
+## C-A -1.5 -11.024103  8.024103 0.9522488
+## D-A  5.5  -4.024103 15.024103 0.3636471
+## C-B -4.0 -13.524103  5.524103 0.5778444
+## D-B  3.0  -6.524103 12.524103 0.7479312
+## D-C  7.0  -2.524103 16.524103 0.2222893</code></pre>
+<pre class="r"><code>agua = read.csv(&quot;./data/agua.csv&quot;)
+agua = as.tibble(agua)
+
+teste_aov = aov(Tempo ~ Tipo, data = agua)
+teste_aov</code></pre>
+<pre><code>## Call:
+##    aov(formula = Tempo ~ Tipo, data = agua)
+## 
+## Terms:
+##                     Tipo Residuals
+## Sum of Squares  102.0833  236.1667
+## Deg. of Freedom        1        10
+## 
+## Residual standard error: 4.859698
+## Estimated effects may be unbalanced</code></pre>
+<pre class="r"><code>#teste_tukey = TukeyHSD(x = teste_aov,
+#                       c(&quot;Variedade&quot;),
+#                       conf.level=0.9)
+#teste_tukey</code></pre>

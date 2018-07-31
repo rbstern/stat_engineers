@@ -1,0 +1,8 @@
+---
+title: "Bancos de dados"
+author: "Rafael Bassi Stern"
+date: "May 3, 2018"
+output: html_document
+---
+
+- [adubo](./adubo.csv)

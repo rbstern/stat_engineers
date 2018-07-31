@@ -1,0 +1,67 @@
+baseurl = "https://www.rafaelstern.science/classes/2018_1_ipaee/"
+languageCode = "en-us"
+title = "Rafael Bassi Stern"
+theme = "blackburn"
+author = "Yoshiharu Yamashita"
+copyright = "&copy; 2018. All rights reserved."
+canonifyurls = true
+relativeurls = true
+paginate = 10
+
+[indexes]
+  tag = "tags"
+  topic = "topics"
+
+[params]
+  # Shown in the home page
+  brand = "Rafael Stern"
+  disqus = "rafaelstern"
+  # CSS name for highlight.js
+  googleAnalytics = "UA-114310932-1"
+  highlightjs = "androidstudio"
+  dateFormat = "02 Jan 2006"
+
+[menu]
+  # Shown in the side menu.
+  [[menu.main]]
+    name = "Novidades"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 1
+    identifier = "home"
+    url = "/"
+  [[menu.main]]
+    name = "Regras"
+    pre = "<i class='fa fa-book fa-fw'></i>"
+    weight = 2
+    identifier = "syllabus"
+    url = "/syllabus/"
+  [[menu.main]]
+    name = "Aulas"
+    pre = "<i class='fa fa-university fa-fw'></i>"
+    weight = 3
+    identifier = "aulas"
+    url = "/post/"
+  [[menu.main]]
+    name = "Notas"
+    pre = "<i class='fa fa-file fa-fw'></i>"
+    weight = 3
+    identifier = "grades"
+    url = "/grades/"
+  [[menu.main]]
+    name = "Dados"
+    pre = "<i class='fa fa-cogs fa-fw'></i>"
+    weight = 4
+    identifier = "dados"
+    url = "/dados/"
+  [[menu.main]]
+    name = "Meu site"
+    pre = "<i class='fa fa-phone fa-fw'></i>"
+    weight = 5
+    url = "https://www.rafaelstern.science"
+
+[social]
+  # Link your social networking accouns to the side menu
+  # by entering your username or ID.
+  github = "rbstern"
+  googlescholar = "2iLil_kAAAAJ"
+  mathexchange = "34305"
