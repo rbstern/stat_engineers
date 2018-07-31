@@ -214,6 +214,13 @@ esta abstração é útil.
 - Use sempre o mesmo padrão para as variáveis quantitativas (ex: nada de “Masculino”, “Masc.”, “masculino”)
 - Deixe um espaço em branco para indicar valores faltantes
 
+# Lendo um banco de dados no R
+
+```{r,eval=FALSE}
+require(tidyverse)
+dados <- read_excel("iris.xlsx")
+```
+
 
 # Exercícios
 
