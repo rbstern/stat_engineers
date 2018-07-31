@@ -1,7 +1,7 @@
 ---
 title: 'Aula 1 - Construção de bancos de dados'
-author: "Rafael Bassi Stern"
-date: 2018-03-14
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: ipaee.bib
 output: html_document
 ---
@@ -123,6 +123,19 @@ escrever um dicionário como:
 - **Species**: Espécie da unidade amostral.
 Pode assumir os valores "setosa", "versicolor" ou "virginica".
 
+
+# Estatística descritiva vs Estatística inferencial
+
+- Análise **descritiva**: 
+    - tem como objetivo 
+descrever a amostra observada (i.e., os dados coletados).
+    - média, mediana, desvio-padrão, gráficos, ...
+    - não há incertezas
+- Análise **inferencial**
+    - com base em uma *amostra*, fazer afirmações sobre uma *população*
+    - *probabilidade*: linguagem usada para descrever incertezas; liga amostras a populações 
+
+
 # Tipos de variáveis
 
 É comum dividirmos as variáveis em 4 categorias.
@@ -193,6 +206,14 @@ o peso como variável discreta.
 Mesmo assim, é mais comum considerarmos o
 peso como variável contínua, pois
 esta abstração é útil.
+
+# Dicas para construir bancos de dados
+
+- Os dados de uma determinada variável devem sempre se manter na mesma medida de mensuração
+- Não se deve colocar no campo dos dados a medida de mensuração; essa deverá constar no dicionário do banco de dados.
+- Use sempre o mesmo padrão para as variáveis quantitativas (ex: nada de “Masculino”, “Masc.”, “masculino”)
+- Deixe um espaço em branco para indicar valores faltantes
+
 
 # Exercícios
 
