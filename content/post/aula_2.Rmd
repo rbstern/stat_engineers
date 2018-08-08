@@ -1,7 +1,7 @@
 ---
 title: "Aula 2 - Medidas resumo"
-author: "Rafael Bassi Stern"
-date: 2018-03-19
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: ipaee.bib
 output: html_document
 ---
@@ -262,6 +262,31 @@ do $3^o$ quartil obtém-se a medida chamada de
 No caso do comprimento das sépalas,
 o intervalo interquartílico é 
 $6.4-5.1=1.3$.
+
+## Medidas de associação
+
+Frequentemente, estamos interessados
+em verificar a associação entre duas
+variáveis.
+Para o caso de variáveis contínuas $X$ e $Y$, uma forma
+de se fazer isso é via a *correlação de Pearson*:
+$$r =\frac{\sum ^n _{i=1}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum ^n _{i=1}(X_i - \bar{X})^2} \sqrt{\sum ^n _{i=1}(Y_i - \bar{Y})^2}}$$
+A correlação de Pearson sempre está entre -1 e 1.
+Uma correlação próxima de 1 indica forte associação linear positiva,
+enquanto que uma correlação próxima de -1 indica forte 
+associação linear negativa. Correlações próximas a zero indicam
+ausência de associação linear.
+
+```{r}
+plot(iris$Sepal.Length,iris$Sepal.Width)
+cor(iris$Sepal.Length,iris$Sepal.Width)
+```
+
+```{r}
+plot(iris$Sepal.Length,iris$Petal.Length)
+cor(iris$Sepal.Length,iris$Petal.Length)
+```
+
 
 ## Resumo de observações no R
 
