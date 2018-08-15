@@ -1,0 +1,405 @@
+---
+title: "Aulas 5 - Mais sobre o R"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '`r format(Sys.Date(), "%d-%m-%Y")`'
+bibliography: ipaee.bib
+output: html_document
+---
+
+* Uma boa referência para a utilização do R é o *[R for data science](http://r4ds.had.co.nz/index.html)* (Garrett Grolemund e Hadley Wickham).
+* Como buscar ajuda no R? Como saber quais os parâmetros de uma função?
++ Google
++ Stackoverflow
+
+
+Utilizaremos os seguintes pacotes:
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+
+
+# Lendo bancos de dados
+
+Vamos ler o conjunto  Iris
+
+Esse conjunto de dados contém informações sobre 3 espécies de flores.  Foram observadas as espécies iris setosa, iris virginica e iris versicolor. 
+Coletou-se o comprimento e largura das sépalas e pétalas (em cemtímetros) de 50 flores de cada espécie. 
+
+```{r}
+dados <- read_excel("iris.xlsx")
+head(dados)
+
+?read_excel # ajuda sobre uma função
+```
+
+*No RStudio, o símbolo de atribuição (<-) pode ser feito com o atalho alt+-*
+
+# Manipulações básicas
+
+```{r}
+dim(dados)
+
+dados$Sepal.Length
+
+mean(dados$Sepal.Length)
+
+median(dados$Sepal.Length)
+
+var(dados$Sepal.Length)
+
+min(dados$Sepal.Length)
+
+summary(dados)
+```
+
+Dados é um data.frame
+
+
+## Alguns tipos de variáveis
+
+
+Vetor numérico:
+
+```{r}
+dados$Sepal.Length 
+dados$Sepal.Length+1
+dados$Sepal.Length+dados$Petal.Length
+typeof(dados$Sepal.Length)
+```
+
+Vetor de caracteres
+
+```{r}
+dados$Species
+typeof(dados$Species)
+```
+
+Vetor lógico
+
+```{r}
+novo.vetor <- dados$Sepal.Length>6.5
+novo.vetor
+typeof(novo.vetor)
+```
+
+
+
+
+# Manipulando Dados com o dplyr
+
+## O operador pipe (%>%; no RStudio ctrl+shift+m)
+
+```{r}
+mean(dados$Sepal.Length)
+```
+
+Forma equivalente:
+
+```{r}
+dados$Sepal.Length %>% mean
+```
+
+
+```{r}
+dados %>% names
+```
+
+```{r}
+dados %>% summary
+```
+
+
+
+
+As principais funções do dplyr são:
+select, filter, mutate, arrange, summarize
+e group_by
+
+## select
+
+Selectiona um subconjunto das colunas
+
+```{r}
+dados %>% select(Sepal.Length)
+
+dados %>% select(Sepal.Length,Sepal.Width)
+
+
+dados %>% select(Sepal.Length,Sepal.Width) %>% summary
+
+dados %>% select(Species) %>% table
+
+dados %>% select(Species) %>% table %>% prop.table
+```
+
+## filter
+
+Seleciona um subconjunto das linhas
+
+```{r}
+dados %>% filter(Species=="setosa")
+
+dados %>% filter(Species=="setosa") %>% select(Petal.Length,Sepal.Width) %>% summary
+```
+
+
+## mutate
+
+Cria novas variáveis.
+
+```{r}
+dados <- dados %>% mutate(SepalMaisPetalLength=Sepal.Length+Petal.Length,
+                          areaSepala=Sepal.Length*Sepal.Width)
+
+dados %>% select(SepalMaisPetalLength,areaSepala)
+```
+
+## arrange
+
+Ordena o banco 
+
+```{r}
+dados %>% arrange(Sepal.Length)
+
+dados <- dados %>% arrange(Species,Sepal.Length)
+dados
+```
+
+## summarize
+
+Cria resumos (i.e., calcula estatísticas)
+do banco
+
+```{r}
+dados %>% summarize(media.sepal.length=mean(Sepal.Length))
+
+dados %>% summarize(media.sepal.length=mean(Sepal.Length),
+                    media.petal.length=mean(Petal.Length))
+```
+
+
+### summarize_all
+
+
+Idem ao summarize, mas aplica automaticamente o mesmo
+resumo para todas as variáveis
+
+```{r}
+dados %>% summarize_all(mean)
+```
+
+NA significa Not Available; não é possível fazer a média
+de uma variável que é composta por caracteres.
+
+
+```{r}
+dados %>% select_if(is.numeric) %>%  summarize_all(mean)
+```
+
+
+```{r}
+dados %>% select_if(is.numeric) %>%  summarize_all(c("mean","sd"))
+
+estatisticas <- dados %>% select_if(is.numeric) %>%  
+  summarize_all(funs(media=mean,desvio=sd))
+
+estatisticas$Sepal.Length_media
+
+estatisticas %>% as.data.frame
+```
+
+```{r}
+dados %>% summarize(media.sepal.length=mean(Sepal.Length),
+                    media.petal.length=mean(Petal.Length))
+```
+
+## group_by
+
+
+```{r}
+dados %>% group_by(Species) %>% summarize(media.sepal.length=mean(Sepal.Length), 
+                                          media.petal.length=mean(Petal.Length))
+
+dados %>% group_by(Species) %>% summarize(media.sepal.length=mean(Sepal.Length), 
+                                          media.petal.length=mean(Petal.Length)) %>% 
+  arrange(desc(media.sepal.length))
+```
+
+```{r}
+mediana.petala <- median(dados$Petal.Length)
+
+dados <- dados %>% mutate(grande=Petal.Length>mediana.petala)
+dados$grande
+
+
+dados %>% group_by(Species,grande) %>% summarize(media.sepal.length=mean(Sepal.Length),
+                                                 media.petal.length=mean(Petal.Length))
+```
+
+
+# Gráficos com o ggplot2
+
+Vamos voltar ao conjunto iris:
+
+```{r}
+dados <- read_excel("iris.xlsx")
+```
+
+
+## Gráficos de barras
+```{r}
+ggplot(dados) + geom_bar(aes(x = Species))
+```
+
+```{r}
+ggplot(dados) + geom_bar(aes(x = Species),fill="lightblue")+xlab("Espécie")+
+  ylab("Número de observações")
+```
+
+```{r}
+ggplot(dados) + geom_bar(aes(x = Species)) + coord_flip()
+```
+
+
+## Gráficos de dispersão
+```{r}
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width))
+```
+
+```{r}
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width),size=2,alpha=0.4,color="red")
+```
+
+
+
+```{r}
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width,color = Species),size=2)
+```
+
+```{r}
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width, colour = Species,shape = Species), size = 2)
+```
+
+
+## Boxplot
+
+```{r}
+ggplot(dados) + geom_boxplot(aes(x = Species, y = Sepal.Length))
+```
+
+
+```{r}
+ggplot(dados) + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length),fill = "lightblue", colour= "red")
+```
+
+
+```{r}
+ggplot(dados)  + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length),fill = "lightblue", colour= "red") + 
+  xlab("Espécies") + 
+  ylab("Comprimento das Sépalas") + 
+  ggtitle("Comprimento das Sépalas")
+```
+
+
+
+
+
+
+
+```{r}
+ggplot(dados) + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length),fill = "lightblue", colour= "red") + 
+  scale_x_discrete(name = "Espécies") + 
+  scale_y_continuous(name = "Comprimento das Sépalas") + 
+  ggtitle("Comprimento das Sépalas") + geom_jitter(aes(x = Species, y = Sepal.Length))
+```
+
+
+## Histograma
+```{r}
+ggplot(dados) + 
+  geom_histogram(aes(x = Sepal.Length), colour = "red", fill = "lightblue")
+```
+
+
+
+
+## Facets
+
+```{r}
+ggplot(dados) + 
+  geom_histogram(aes(x = Sepal.Length), breaks = seq(4, 10, 1), colour = "red", 
+                 fill = "lightblue") +
+  scale_x_continuous(name = "Comprimento da Sépala", breaks = seq(4, 10, 1), 
+                     limits=c(2, 12)) +
+  facet_grid(Species ~ .)
+
+```
+
+
+### Mudando as configurações
+
+#### Temas
+
+
+```{r}
+ggplot(dados)  + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length),fill = "lightblue", colour= "red") + 
+  xlab( "Espécies") + 
+  ylab( "Comprimento das Sépalas") + 
+  ggtitle("Comprimento das Sépalas") +  theme_bw()
+```
+
+
+
+
+```{r}
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width, colour = Species,shape = Species), size = 2)
+
+theme = theme_set(theme_minimal(base_size = 20))
+theme = theme_update(legend.position="top")
+
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width, colour = Species,shape = Species), size = 2)
+
+
+ggplot(dados) + 
+  geom_point(aes(x=Sepal.Length, y=Sepal.Width, colour = Species,shape = Species), size = 2)
+```
+
+
+# Exercícios
+
+1. Considere o conjunto de dados [Bike Sharing Dataset](https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset)
+
+    a. Há mais gente usando bikes nos feriados que em dias normais?
+
+    b. Qual a mediana do número de aluguéis por estação?
+
+    c. Existe correlação (de Pearson) entre velocidade do vento
+e número de bikes alugadas?
+
+    d. Faça um gráfico de dispersão do número de aluguéis
+versus a temperatura
+
+    e. Adicione a esse gráfico uma cor para cada ponto de acordo com a estação do ano
+
+    f. Adicione a esse gráfico uma tipo diferente de ponto para cada ponto de acordo com a estação do ano
+
+    g. Adicione a esse gráfico uma curva que descreva a tendência dessa relação
+
+    h. Faça novamente o gráfico do item 3, mas dessa vez separando dias de trabalho com dias de não trabalho
+
+
+# Referências 

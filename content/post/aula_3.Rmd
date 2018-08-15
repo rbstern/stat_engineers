@@ -1,6 +1,6 @@
 ---
 title: "Aulas 3 e 4 - Visualização de dados"
-author: "Rafael Bassi Stern"
+author: "Rafael Izbicki e Rafael Bassi Stern"
 date: '`r format(Sys.Date(), "%d-%m-%Y")`'
 bibliography: ipaee.bib
 output: html_document
@@ -155,9 +155,9 @@ na figura a seguir:
 dados = data.frame(var1 = normais)
 ggplot(aes(x = var1), 
        data = dados) + 
-geom_histogram(aes(y=..density..)) +
-geom_density(color="red") +
-xlab("valores") + ylab("densidade")
+  geom_histogram(aes(y=..density..)) +
+  geom_density(color="red") +
+  xlab("valores") + ylab("densidade")
 ```
 
 Às vezes, o histograma também não
@@ -172,7 +172,7 @@ comparar o efeito de cada adubo.
 ```{r, message = FALSE, warning = FALSE}
 ggplot(aes(x =  efeito, color = nitrato),
        data = adubo) +
-geom_histogram()
+  geom_histogram()
 ```
 
 Para resolver este problema,
@@ -230,7 +230,7 @@ ggplot(aes(y = efeito,
            x = nitrato, 
            color = nitrato), 
        data = adubo) + 
-geom_boxplot()
+  geom_boxplot()
 ```
 
 Note que, ainda que a mediana no grupo com
@@ -298,10 +298,10 @@ usando o seguinte comando no **R**:
 ```{r}
 ggplot(aes(x = Petal.Length , y = Petal.Width),
        data = iris) +
-geom_point(color='blue') +
-geom_smooth(method='lm', color = "red") +
-xlab("Comprimento da petala") +
-ylab("Largura da petala")
+  geom_point(color='blue') +
+  geom_smooth(method='lm', color = "red") +
+  xlab("Comprimento da petala") +
+  ylab("Largura da petala")
 ```
 
 # Exercícios
@@ -325,11 +325,9 @@ alturas = c(149, 163, 168, 169, 172, 173, 175, 180, 181)
 print(alturas)
 ```
 
- a. Calcule a média e a variância das alturas.
- 
- b. Verifique se há algum *outlier* neste
- banco de dados e descreva o significado
- deste termo.
+a. Calcule a média e a variância das alturas.
+
+b. Verifique se há algum *outlier* neste banco de dados e descreva o significado deste termo.
 
 5. Um pesquisador está interessado em estudar como 
 varia o percentual de aproveitamento do petróleo em 
@@ -339,27 +337,20 @@ Foram consideradas duas diferentes temperaturas
 para cada uma destas.
 
 \begin{table}[h]
- \centering
- \begin{tabular}{|c|ccccccccc|}
-  \hline
-  Temperatura	& Dados & & & & & & & & \\
-	\hline
-	150 &	8.7 & 20.1 & 7.4 & 6.3 & 10.2 & 6.1 & 7.3 & 6.7 & 7.1 \\
-  300 &	90.1 & 87.7 & 86.5 & 85.4 & 89.9 & 90.3 & 88.4 & 85.2 & 90.4 \\
-  \hline
- \end{tabular}
+\centering
+\begin{tabular}{|c|ccccccccc|}
+\hline
+Temperatura	& Dados & & & & & & & & \\
+\hline
+150 &	8.7 & 20.1 & 7.4 & 6.3 & 10.2 & 6.1 & 7.3 & 6.7 & 7.1 \\
+300 &	90.1 & 87.7 & 86.5 & 85.4 & 89.9 & 90.3 & 88.4 & 85.2 & 90.4 \\
+\hline
+\end{tabular}
 \end{table}
 
- a. Indique uma medida de centralidade e 
- uma medida de dispersão para cada
- uma das temperaturas testadas e interprete-as.
-	
- b. Esboce um boxplot para
- o aproveitamento de petróleo para 
- cada temperatura testada.
- Interprete os boxplots e compare
- a diferença entre os aproveitamentos
- para cada temperatura.
+a. Indique uma medida de centralidade e  uma medida de dispersão para cada uma das temperaturas testadas e interprete-as.
+
+b. Esboce um boxplot para o aproveitamento de petróleo para cada temperatura testada.  Interprete os boxplots e compare a diferença entre os aproveitamentos para cada temperatura.
 
 6. O boxplot indica a mediana e
 o intervalo interquartílico de uma variável.
