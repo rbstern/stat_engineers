@@ -30,7 +30,7 @@ Esse conjunto de dados contém informações sobre 3 espécies de flores.  Foram
 Coletou-se o comprimento e largura das sépalas e pétalas (em cemtímetros) de 50 flores de cada espécie. 
 
 ```{r}
-dados <- read_excel("dados/iris.xlsx")
+dados <- read_excel("./data/iris.xlsx")
 head(dados)
 
 ?read_excel # ajuda sobre uma função
@@ -246,7 +246,7 @@ dados %>% group_by(Species,grande) %>% summarize(media.sepal.length=mean(Sepal.L
 Vamos voltar ao conjunto iris:
 
 ```{r}
-dados <- read_excel("dados/iris.xlsx")
+dados <- read_excel("./data/iris.xlsx")
 ```
 
 
