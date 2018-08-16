@@ -3,7 +3,12 @@ title: "Aulas 3 e 4 - Visualização de dados"
 author: "Rafael Izbicki e Rafael Bassi Stern"
 date: '`r format(Sys.Date(), "%d-%m-%Y")`'
 bibliography: ipaee.bib
-output: html_document
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Visualização de dados
