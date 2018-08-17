@@ -1,7 +1,7 @@
 ---
-title: "Aulas 3 e 4 - Visualização de dados"
+title: "Aula 3 e Aula 4 - Visualização de dados"
 author: "Rafael Izbicki e Rafael Bassi Stern"
-date: '`r format(Sys.Date(), "%d-%m-%Y")`'
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
 bibliography: ipaee.bib
 output: 
   html_document:
