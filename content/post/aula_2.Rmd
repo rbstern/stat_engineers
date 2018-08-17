@@ -3,7 +3,12 @@ title: "Aula 2 - Medidas resumo"
 author: "Rafael Izbicki e Rafael Bassi Stern"
 date: '`r format(Sys.Date(), "%d-%m-%Y")`'
 bibliography: ipaee.bib
-output: html_document
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Medidas resumo
@@ -265,17 +270,79 @@ $6.4-5.1=1.3$.
 
 ## Medidas de associação
 
+### Regressão Linear e Método de Mínimos Quadrados
+
 Frequentemente, estamos interessados
 em verificar a associação entre duas
 variáveis.
 Para o caso de variáveis contínuas $X$ e $Y$, uma forma
-de se fazer isso é via a *correlação de Pearson*:
+de se fazer isso é via uma *regressão linear*.
+Nela assumimos que
+$$y_i \approx \beta_0 + \beta_1 x_i,$$
+isto é, assumimos que a relação entre as duas variáveis pode ser
+bem aproximada por uma reta. 
+Utilizando os dados, buscamos então por valores $(\beta_0,\beta_1)$
+que descrevam bem essa relação. Um critério para encontrar esses valores é o método de mínimos quadrados, que consistem em buscar
+$(\beta_0,\beta_1)$ que minimizam
+$$\frac{1}{n}\sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2.$$
+
+No R, esses valores podem ser encontrados utilizando-se a função lm:
+```{r}
+ajuste <- lm("Petal.Length~Sepal.Length",data = iris)
+coeficientes <- coefficients(ajuste)
+print(coeficientes)
+```
+
+Podemos agora adicionar essas a reta ajusta ao gráfico 
+de dispersão:
+
+```{r}
+plot(iris$Sepal.Length,iris$Petal.Length)
+abline(a=coeficientes[1],b=coeficientes[2],col=2)
+```
+
+
+### Correlação Linear
+
+O coeficiente $\beta_1$ de uma regressão linear, o coeficiente
+angular da reta, mede a associação entre $Y$ e $X$: valores 
+altos de $|\beta_1|$ indicam forte associação, enquanto que valores próximos
+a zero indicam fraca associação. 
+
+Frequentemente temos interesse em verificar a associação entre
+diversos pares de variáveis. 
+Por exemplo: o que está mais associado com a expectativa de vida
+de um indivíduo? Índice de massa corpórea ou renda familiar?
+Uma forma de responder essa pergunta é: (i) fazer uma regressão
+da expectativa de vida no índice de massa corpórea e obter o 
+coeficiente angular dessa relação e (ii)
+fazer uma regressão
+da expectativa de vida na renda familiar e obter o 
+coeficiente angular dessa relação. 
+Contudo, como $\beta_1$ depende da escala destas variáveis,
+comparar os valores numéricos desses coeficientes não é trivial.
+
+Um forma de contornar esse problema é *padronizar* tanto $X$ quanto
+$Y$ **antes** de se aplicar a regressão linear. Isto é, pode-se
+fazer 
+$$X_i \gets X_i/S_X$$
+e
+$$Y_i \gets Y_i/S_Y,$$
+em que $S_X$ é o desvio padrão de $X$ e 
+$S_Y$ é o desvio padrão de $Y$. Pode-se então ajustar
+a regressão linear entre essas duas novas variáveis. 
+
+O coeficiente angular ajustado desta forma é chamado de
+*correlação de Pearson*, e ele possui uma fórmula simples:
 $$r =\frac{\sum ^n _{i=1}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum ^n _{i=1}(X_i - \bar{X})^2} \sqrt{\sum ^n _{i=1}(Y_i - \bar{Y})^2}}$$
 A correlação de Pearson sempre está entre -1 e 1.
 Uma correlação próxima de 1 indica forte associação linear positiva,
 enquanto que uma correlação próxima de -1 indica forte 
 associação linear negativa. Correlações próximas a zero indicam
 ausência de associação linear.
+
+Assim, não é necessário fazer a padronização das variáveis para calcular
+o coeficiente de correlação. No R, isso pode ser feito usando a função *cor*.
 
 ```{r}
 plot(iris$Sepal.Length,iris$Sepal.Width)

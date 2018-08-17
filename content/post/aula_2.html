@@ -1,9 +1,14 @@
 ---
 title: "Aula 2 - Medidas resumo"
 author: "Rafael Izbicki e Rafael Bassi Stern"
-date: '15-08-2018'
+date: '16-08-2018'
 bibliography: ipaee.bib
-output: html_document
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -93,15 +98,36 @@ S = \sqrt{S^2}
 </div>
 <div id="medidas-de-associacao" class="section level2">
 <h2>Medidas de associação</h2>
-<p>Frequentemente, estamos interessados em verificar a associação entre duas variáveis. Para o caso de variáveis contínuas <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, uma forma de se fazer isso é via a <em>correlação de Pearson</em>: <span class="math display">\[r =\frac{\sum ^n _{i=1}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum ^n _{i=1}(X_i - \bar{X})^2} \sqrt{\sum ^n _{i=1}(Y_i - \bar{Y})^2}}\]</span> A correlação de Pearson sempre está entre -1 e 1. Uma correlação próxima de 1 indica forte associação linear positiva, enquanto que uma correlação próxima de -1 indica forte associação linear negativa. Correlações próximas a zero indicam ausência de associação linear.</p>
+<div id="regressao-linear-e-metodo-de-minimos-quadrados" class="section level3">
+<h3>Regressão Linear e Método de Mínimos Quadrados</h3>
+<p>Frequentemente, estamos interessados em verificar a associação entre duas variáveis. Para o caso de variáveis contínuas <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, uma forma de se fazer isso é via uma <em>regressão linear</em>. Nela assumimos que <span class="math display">\[y_i \approx \beta_0 + \beta_1 x_i,\]</span> isto é, assumimos que a relação entre as duas variáveis pode ser bem aproximada por uma reta. Utilizando os dados, buscamos então por valores <span class="math inline">\((\beta_0,\beta_1)\)</span> que descrevam bem essa relação. Um critério para encontrar esses valores é o método de mínimos quadrados, que consistem em buscar <span class="math inline">\((\beta_0,\beta_1)\)</span> que minimizam <span class="math display">\[\frac{1}{n}\sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2.\]</span></p>
+<p>No R, esses valores podem ser encontrados utilizando-se a função lm:</p>
+<pre class="r"><code>ajuste &lt;- lm(&quot;Petal.Length~Sepal.Length&quot;,data = iris)
+coeficientes &lt;- coefficients(ajuste)
+print(coeficientes)</code></pre>
+<pre><code>##  (Intercept) Sepal.Length 
+##    -7.101443     1.858433</code></pre>
+<p>Podemos agora adicionar essas a reta ajusta ao gráfico de dispersão:</p>
+<pre class="r"><code>plot(iris$Sepal.Length,iris$Petal.Length)
+abline(a=coeficientes[1],b=coeficientes[2],col=2)</code></pre>
+<p><img src="/post/aula_2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="correlacao-linear" class="section level3">
+<h3>Correlação Linear</h3>
+<p>O coeficiente <span class="math inline">\(\beta_1\)</span> de uma regressão linear, o coeficiente angular da reta, mede a associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>: valores altos de <span class="math inline">\(|\beta_1|\)</span> indicam forte associação, enquanto que valores próximos a zero indicam fraca associação.</p>
+<p>Frequentemente temos interesse em verificar a associação entre diversos pares de variáveis. Por exemplo: o que está mais associado com a expectativa de vida de um indivíduo? Índice de massa corpórea ou renda familiar? Uma forma de responder essa pergunta é: (i) fazer uma regressão da expectativa de vida no índice de massa corpórea e obter o coeficiente angular dessa relação e (ii) fazer uma regressão da expectativa de vida na renda familiar e obter o coeficiente angular dessa relação. Contudo, como <span class="math inline">\(\beta_1\)</span> depende da escala destas variáveis, comparar os valores numéricos desses coeficientes não é trivial.</p>
+<p>Um forma de contornar esse problema é <em>padronizar</em> tanto <span class="math inline">\(X\)</span> quanto <span class="math inline">\(Y\)</span> <strong>antes</strong> de se aplicar a regressão linear. Isto é, pode-se fazer <span class="math display">\[X_i \gets X_i/S_X\]</span> e <span class="math display">\[Y_i \gets Y_i/S_Y,\]</span> em que <span class="math inline">\(S_X\)</span> é o desvio padrão de <span class="math inline">\(X\)</span> e <span class="math inline">\(S_Y\)</span> é o desvio padrão de <span class="math inline">\(Y\)</span>. Pode-se então ajustar a regressão linear entre essas duas novas variáveis.</p>
+<p>O coeficiente angular ajustado desta forma é chamado de <em>correlação de Pearson</em>, e ele possui uma fórmula simples: <span class="math display">\[r =\frac{\sum ^n _{i=1}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum ^n _{i=1}(X_i - \bar{X})^2} \sqrt{\sum ^n _{i=1}(Y_i - \bar{Y})^2}}\]</span> A correlação de Pearson sempre está entre -1 e 1. Uma correlação próxima de 1 indica forte associação linear positiva, enquanto que uma correlação próxima de -1 indica forte associação linear negativa. Correlações próximas a zero indicam ausência de associação linear.</p>
+<p>Assim, não é necessário fazer a padronização das variáveis para calcular o coeficiente de correlação. No R, isso pode ser feito usando a função <em>cor</em>.</p>
 <pre class="r"><code>plot(iris$Sepal.Length,iris$Sepal.Width)</code></pre>
-<p><img src="/post/aula_2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/aula_2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>cor(iris$Sepal.Length,iris$Sepal.Width)</code></pre>
 <pre><code>## [1] -0.1175698</code></pre>
 <pre class="r"><code>plot(iris$Sepal.Length,iris$Petal.Length)</code></pre>
-<p><img src="/post/aula_2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/aula_2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>cor(iris$Sepal.Length,iris$Petal.Length)</code></pre>
 <pre><code>## [1] 0.8717538</code></pre>
+</div>
 </div>
 <div id="resumo-de-observacoes-no-r" class="section level2">
 <h2>Resumo de observações no R</h2>
