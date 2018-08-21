@@ -165,6 +165,17 @@ ggplot(aes(x = var1),
   xlab("valores") + ylab("densidade")
 ```
 
+```{r, message = FALSE, warning = FALSE}
+ggplot(data=iris,aes(x =  Sepal.Length, fill = Species)) +
+  geom_histogram()
+```
+
+```{r, message = FALSE, warning = FALSE}
+ggplot(data=iris,aes(x =  Sepal.Length)) +
+  geom_histogram()+facet_grid(Species~.)
+```
+
+
 Às vezes, o histograma também não
 resume suficientemente as observações.
 Por exemplo, a figura abaixo apresenta
@@ -175,7 +186,7 @@ os histogramas é difícil
 comparar o efeito de cada adubo.
 
 ```{r, message = FALSE, warning = FALSE}
-ggplot(aes(x =  efeito, color = nitrato),
+ggplot(aes(x =  efeito, fill = nitrato),
        data = adubo) +
   geom_histogram()
 ```
@@ -233,7 +244,7 @@ em 2 grupos: sem ou com nitrato.
 ```{r}
 ggplot(aes(y = efeito, 
            x = nitrato, 
-           color = nitrato), 
+           fill = nitrato), 
        data = adubo) + 
   geom_boxplot()
 ```
@@ -256,7 +267,7 @@ Neste caso, obtemos as figuras:
 ```{r}
 ggplot(aes(y = efeito, 
            x = fosfato,
-           color = fosfato), 
+           fill = fosfato), 
        data = adubo) + geom_boxplot()
 ```
 
@@ -271,15 +282,15 @@ do que os adubos sem fosfato.
 
 ## Visualizando duas variáveis
 
-### Scatter plot
+### Gráfico de dispersão (Scatter plot)
 
 Por vezes, estamos interessados em
 visualizar a relação entre duas variáveis contínuas.
 Neste caso, podemos designar um eixo para cada variável
 e desenhar um ponto para cada observação.
-Este tipo de gráfico é chamado de **scatter plot**.
+Este tipo de gráfico é chamado de **gráfico de dispersão**.
 
-No **R** é possível obter o scatter plot
+No **R** é possível obter o gráfico de dispersão
 usando o comando *plot()*.
 A seguir, ilustramos este comando no
 banco de dados *iris* usando como variáveis
