@@ -394,4 +394,9 @@ temos 50 exemplares de cada espécie.
 Qual banco de dados terá maior variabilidade
 em relação ao comprimento das sépalas?
 
+5. Qual é a variável contínua mais correlacionada com
+Sepal.Lenght? Faça um gráfico de dispersão
+entre essa variável e Sepal.Lenght, adicionando no gráfico
+a reta que melhor descreve a relação entre essas variáveis.
+
 # Referências 
