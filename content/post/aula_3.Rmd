@@ -341,9 +341,9 @@ alturas = c(149, 163, 168, 169, 172, 173, 175, 180, 181)
 print(alturas)
 ```
 
-a. Calcule a média e a variância das alturas.
+* a. Calcule a média e a variância das alturas.
 
-b. Verifique se há algum *outlier* neste banco de dados e descreva o significado deste termo.
+* b. Verifique se há algum *outlier* neste banco de dados e descreva o significado deste termo.
 
 5. Um pesquisador está interessado em estudar como 
 varia o percentual de aproveitamento do petróleo em 
@@ -364,9 +364,9 @@ Temperatura	& Dados & & & & & & & & \\
 \end{tabular}
 \end{table}
 
-a. Indique uma medida de centralidade e  uma medida de dispersão para cada uma das temperaturas testadas e interprete-as.
+* a. Indique uma medida de centralidade e  uma medida de dispersão para cada uma das temperaturas testadas e interprete-as.
 
-b. Esboce um boxplot para o aproveitamento de petróleo para cada temperatura testada.  Interprete os boxplots e compare a diferença entre os aproveitamentos para cada temperatura.
+* b. Esboce um boxplot para o aproveitamento de petróleo para cada temperatura testada.  Interprete os boxplots e compare a diferença entre os aproveitamentos para cada temperatura.
 
 6. O boxplot indica a mediana e
 o intervalo interquartílico de uma variável.
