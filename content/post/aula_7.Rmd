@@ -1,0 +1,186 @@
+---
+title: "Aula 7 - Distribuição Binomial"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+bibliography: ipaee.bib
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Propriedades de variáveis aleatórias discretas
+
+Uma forma de descrever a incerteza em relação
+a uma variável aleatória é por meio de sua 
+**função de densidade**.
+Se $X$ é uma variável aleatória, geralmente
+designamos a função de densidade de $X$ 
+por $f_{X}(x)$.
+O valor de $f_{X}(x)$ indica o quão plausível é
+que a variável aleatória $X$ assuma o valor $x$.
+
+
+No caso de uma variável aleatória discreta (i.e, 
+uma variável aleatória que assume um número *enumerável*
+de valores), $f_{X}(x)=P(X=x)$.
+
+Por exemplo, considere
+um lançamento de uma moeda, e
+seja 
+\[
+X = \left\{\begin{array}{ll}
+1, & \text{se o lançamento resultou em cara}\\
+0, & \text{caso contrário } \\
+\end{array} \right.
+\]
+
+Se a moeda tiver probabilidade de cara de 30\%, então
+$f_X(1)=0.3$ e $f_X(0)=0.7$.
+
+Uma propriedade importante de uma função de densidade é que
+podemos obter a probabilidade de que $X$ assumir
+algum dos valores em um conjunto
+$\{x_1,\ldots,x_m\}$  calculando a soma dos valores
+que a densidade assume nesses valores.
+
+
+Por exemplo, considere um experimento que consiste
+em jogar um dado (viesado). Seja $X$ o número da face voltada
+para cima. Se $f_X(1)=1/2$, $f_X(2)=f_X(3)=f_X(4)=f_X(5)=f_X(6)=1/10$,
+então
+$$P(X \in \{1,3,5\})=\sum_{x \in \{1,3,5\}}f_X(x)=1/2+1/10+1/10=0.7.$$
+
+A função de densidade descreve toda
+a incerteza sobre uma variável aleatória
+discreta.
+Contudo, pode ser difícil descrever e
+analisar uma função. Assim,
+é comum que certos aspectos de
+uma variável aleatória sejam resumidos 
+em números. A seguir, estudamos
+algumas destas medidas resumo.
+
+- **Esperança** (média populacional): 
+A esperança de uma varíavel aleatória, $X$ é
+denotada por $E[X]$ e descreve
+uma medida de centralidade desta.
+Se imaginarmos que, para cada possível valor, $x$,
+existe um peso de $f_{X}(x)$ na posição $x$, então 
+$E[X]$ descreve o centro de massa desse sistema.
+Também, a média amostral e a esperança resumem 
+a mesma característica.
+Enquanto que a primeira descreve a centralidade para
+uma variável em um banco de dados, 
+uma variável aleatória já observada,
+a segunda descreve a centralidade para uma variável aleatória,
+isto é, descreve a incerteza sobre 
+uma observação antes que esta ocorra.
+De forma técnica, a esperança de 
+uma variável aleatória discreta é 
+calculada da seguinte forma:
+$$E[X] = \sum_{x} x f_{X}(x)$$
+
+- **Variância** (populacional): 
+A variância de uma variável aleatória, $X$, é
+denotada por $V[X]$ e indica um resumo da
+variabilidade desta.
+Assim como a variância amostral descreve 
+a variabilidade de uma variável em um banco de dados (já observado),
+a variância populacional descreve
+a variabilidade de uma variável aleatória (ainda não observada).
+De forma técnica, a variância de 
+uma variável aleatória discreta é 
+calculada da seguinte forma:
+$$V[X] = \sum_x (x-E[X])^2 f_{X}(x)$$
+Semelhantemente ao caso da variância amostral,
+a variância populacional não é medida na 
+mesma escala da variável aleatória que ela representa.
+Para obter esta escala, é comum tomar a
+raiz quadrada da variância populacional.
+Esta medida é chamada de **desvio padrão** (populacional).
+Também é comum designarmos a variância de $X$ por
+$\sigma^2_X$. Esta notação é conveniente pois permite
+designarmos o desvio padrão de $X$ por $\sigma_X$.
+
+A seguir, estudaremos 
+uma funççao de densidade de uma variável
+aleatória discreta.
+
+# Distribuição binomial
+
+Uma das distribuições discretas mais usadas é a Binomial.
+Formalmente, dizemos que $X$ tem 
+distribuição binomial com
+**parâmetros** $(n,\theta)$
+se
+$X$ tem densidade
+$$
+f_{X}(x) = 
+\binom{n}{x}\theta^x (1-\theta)^{n-x},
+$$
+para $x \in \{0,1,\ldots,n\}$.
+Como diremos muitas vezes neste curso que 
+"$X$ tem distribuição Binomial com parâmetros $n$ e  $\theta$",
+e denotaremos $X \sim Bin(n,\theta)$.
+
+A distribuição binomial descreve o densidade da variável aleatória
+"Número de caras observados em $n$ lançamentos de uma moeda
+com probabilidade de cara $\theta$".
+
+Se $X \sim Bin(n,\theta)$, então obtem-se que
+$E[X] = n\theta$ e $Var[X] = n\theta(1-\theta)$.
+As figuras abaixo exibem a densidade 
+de algumas binomais.
+```{r message = FALSE, warning = FALSE}
+library(ggplot2)
+
+ggplot(data.frame(x = c(0, 100)), aes(x)) + 
+  stat_function(geom="point",
+                fun = function(x)dbinom(x,size=100,prob=1/2), colour="blue", n = 101)+
+  theme_minimal()+ylab(expression(f[X](x)))+ggtitle("X~Binom(100,1/2)")
+
+ggplot(data.frame(x = c(0, 100)), aes(x)) + 
+  stat_function(geom="point",
+                fun = function(x)dbinom(x,size=100,prob=1/3), colour="blue", n = 101)+
+  theme_minimal()+ylab(expression(f[X](x)))+ggtitle("X~Binom(100,1/3)")
+
+ggplot(data.frame(x = c(0, 100)), aes(x)) + 
+  stat_function(geom="point",
+                fun = function(x)dbinom(x,size=100,prob=1/20), colour="blue", n = 101)+
+  theme_minimal()+ylab(expression(f[X](x)))+ggtitle("X~Binom(100,1/20)")
+```
+
+Aqui vimos como dados que seguem uma distribuição binomial
+com determinados parâmetros
+devem se comportar.
+Em inferência, nosso objetivo será estimar os parâmetros
+da distribuição com base nos dados observados.
+
+# Exercícios
+
+1. Considere o lançamento de uma moeda não viesada, e seja
+\[
+X = \left\{\begin{array}{ll}
+1, & \text{se o lançamento resultou em cara}\\
+0, & \text{caso contrário } \\
+\end{array} \right.
+\]
+Além disso, considere o lançamento de um dado não-viesado e seja $Y$ a face de um dado voltada para cima. Seja $Z=X \times Y$.
+Qual é a densidade de $Z$? Justifique.
+
+2. A função dbinom do R fornece a densidade de uma distribuição binomial. Utilizando essa função, calcule a probabilidade
+de se observar 1, 2, 9 ou 10 caras em 10 lançamentos de uma moeda não viesada.
+
+3. Repita o exercício anterior, agora 
+assumindo que a moeda tenha probabilidade de cara de 10\%.
+Interpretando porque o valor obtido neste exercício é maior
+que o anterior.
+
+3. Qual variável aleatória tem variância menor?
+$X \sim Binom(100,1/2)$ ou 
+$Y \sim Binom(100,0.001)$? Interprete esse resultado.
+
+# Referências 
