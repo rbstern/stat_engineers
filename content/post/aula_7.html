@@ -1,0 +1,79 @@
+---
+title: "Aula 7 - Distribuição Binomial"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '2018-08-31'
+bibliography: ipaee.bib
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<div id="propriedades-de-variaveis-aleatorias-discretas" class="section level1">
+<h1>Propriedades de variáveis aleatórias discretas</h1>
+<p>Uma forma de descrever a incerteza em relação a uma variável aleatória é por meio de sua <strong>função de densidade</strong>. Se <span class="math inline">\(X\)</span> é uma variável aleatória, geralmente designamos a função de densidade de <span class="math inline">\(X\)</span> por <span class="math inline">\(f_{X}(x)\)</span>. O valor de <span class="math inline">\(f_{X}(x)\)</span> indica o quão plausível é que a variável aleatória <span class="math inline">\(X\)</span> assuma o valor <span class="math inline">\(x\)</span>.</p>
+<p>No caso de uma variável aleatória discreta (i.e, uma variável aleatória que assume um número <em>enumerável</em> de valores), <span class="math inline">\(f_{X}(x)=P(X=x)\)</span>.</p>
+<p>Por exemplo, considere um lançamento de uma moeda, e seja <span class="math display">\[
+X = \left\{\begin{array}{ll}
+1, &amp; \text{se o lançamento resultou em cara}\\
+0, &amp; \text{caso contrário } \\
+\end{array} \right.
+\]</span></p>
+<p>Se a moeda tiver probabilidade de cara de 30%, então <span class="math inline">\(f_X(1)=0.3\)</span> e <span class="math inline">\(f_X(0)=0.7\)</span>.</p>
+<p>Uma propriedade importante de uma função de densidade é que podemos obter a probabilidade de que <span class="math inline">\(X\)</span> assumir algum dos valores em um conjunto <span class="math inline">\(\{x_1,\ldots,x_m\}\)</span> calculando a soma dos valores que a densidade assume nesses valores.</p>
+<p>Por exemplo, considere um experimento que consiste em jogar um dado (viesado). Seja <span class="math inline">\(X\)</span> o número da face voltada para cima. Se <span class="math inline">\(f_X(1)=1/2\)</span>, <span class="math inline">\(f_X(2)=f_X(3)=f_X(4)=f_X(5)=f_X(6)=1/10\)</span>, então <span class="math display">\[P(X \in \{1,3,5\})=\sum_{x \in \{1,3,5\}}f_X(x)=1/2+1/10+1/10=0.7.\]</span></p>
+<p>A função de densidade descreve toda a incerteza sobre uma variável aleatória discreta. Contudo, pode ser difícil descrever e analisar uma função. Assim, é comum que certos aspectos de uma variável aleatória sejam resumidos em números. A seguir, estudamos algumas destas medidas resumo.</p>
+<ul>
+<li><p><strong>Esperança</strong> (média populacional): A esperança de uma varíavel aleatória, <span class="math inline">\(X\)</span> é denotada por <span class="math inline">\(E[X]\)</span> e descreve uma medida de centralidade desta. Se imaginarmos que, para cada possível valor, <span class="math inline">\(x\)</span>, existe um peso de <span class="math inline">\(f_{X}(x)\)</span> na posição <span class="math inline">\(x\)</span>, então <span class="math inline">\(E[X]\)</span> descreve o centro de massa desse sistema. Também, a média amostral e a esperança resumem a mesma característica. Enquanto que a primeira descreve a centralidade para uma variável em um banco de dados, uma variável aleatória já observada, a segunda descreve a centralidade para uma variável aleatória, isto é, descreve a incerteza sobre uma observação antes que esta ocorra. De forma técnica, a esperança de uma variável aleatória discreta é calculada da seguinte forma: <span class="math display">\[E[X] = \sum_{x} x f_{X}(x)\]</span></p></li>
+<li><p><strong>Variância</strong> (populacional): A variância de uma variável aleatória, <span class="math inline">\(X\)</span>, é denotada por <span class="math inline">\(V[X]\)</span> e indica um resumo da variabilidade desta. Assim como a variância amostral descreve a variabilidade de uma variável em um banco de dados (já observado), a variância populacional descreve a variabilidade de uma variável aleatória (ainda não observada). De forma técnica, a variância de uma variável aleatória discreta é calculada da seguinte forma: <span class="math display">\[V[X] = \sum_x (x-E[X])^2 f_{X}(x)\]</span> Semelhantemente ao caso da variância amostral, a variância populacional não é medida na mesma escala da variável aleatória que ela representa. Para obter esta escala, é comum tomar a raiz quadrada da variância populacional. Esta medida é chamada de <strong>desvio padrão</strong> (populacional). Também é comum designarmos a variância de <span class="math inline">\(X\)</span> por <span class="math inline">\(\sigma^2_X\)</span>. Esta notação é conveniente pois permite designarmos o desvio padrão de <span class="math inline">\(X\)</span> por <span class="math inline">\(\sigma_X\)</span>.</p></li>
+</ul>
+<p>A seguir, estudaremos uma funççao de densidade de uma variável aleatória discreta.</p>
+</div>
+<div id="distribuicao-binomial" class="section level1">
+<h1>Distribuição binomial</h1>
+<p>Uma das distribuições discretas mais usadas é a Binomial. Formalmente, dizemos que <span class="math inline">\(X\)</span> tem distribuição binomial com <strong>parâmetros</strong> <span class="math inline">\((n,\theta)\)</span> se <span class="math inline">\(X\)</span> tem densidade <span class="math display">\[
+f_{X}(x) = 
+\binom{n}{x}\theta^x (1-\theta)^{n-x},
+\]</span> para <span class="math inline">\(x \in \{0,1,\ldots,n\}\)</span>. Como diremos muitas vezes neste curso que “<span class="math inline">\(X\)</span> tem distribuição Binomial com parâmetros <span class="math inline">\(n\)</span> e <span class="math inline">\(\theta\)</span>”, e denotaremos <span class="math inline">\(X \sim Bin(n,\theta)\)</span>.</p>
+<p>A distribuição binomial descreve o densidade da variável aleatória “Número de caras observados em <span class="math inline">\(n\)</span> lançamentos de uma moeda com probabilidade de cara <span class="math inline">\(\theta\)</span>”.</p>
+<p>Se <span class="math inline">\(X \sim Bin(n,\theta)\)</span>, então obtem-se que <span class="math inline">\(E[X] = n\theta\)</span> e <span class="math inline">\(Var[X] = n\theta(1-\theta)\)</span>. As figuras abaixo exibem a densidade de algumas binomais.</p>
+<pre class="r"><code>library(ggplot2)
+
+ggplot(data.frame(x = c(0, 100)), aes(x)) + 
+  stat_function(geom=&quot;point&quot;,
+                fun = function(x)dbinom(x,size=100,prob=1/2), colour=&quot;blue&quot;, n = 101)+
+  theme_minimal()+ylab(expression(f[X](x)))+ggtitle(&quot;X~Binom(100,1/2)&quot;)</code></pre>
+<p><img src="/post/aula_7_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data.frame(x = c(0, 100)), aes(x)) + 
+  stat_function(geom=&quot;point&quot;,
+                fun = function(x)dbinom(x,size=100,prob=1/3), colour=&quot;blue&quot;, n = 101)+
+  theme_minimal()+ylab(expression(f[X](x)))+ggtitle(&quot;X~Binom(100,1/3)&quot;)</code></pre>
+<p><img src="/post/aula_7_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(data.frame(x = c(0, 100)), aes(x)) + 
+  stat_function(geom=&quot;point&quot;,
+                fun = function(x)dbinom(x,size=100,prob=1/20), colour=&quot;blue&quot;, n = 101)+
+  theme_minimal()+ylab(expression(f[X](x)))+ggtitle(&quot;X~Binom(100,1/20)&quot;)</code></pre>
+<p><img src="/post/aula_7_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<p>Aqui vimos como dados que seguem uma distribuição binomial com determinados parâmetros devem se comportar. Em inferência, nosso objetivo será estimar os parâmetros da distribuição com base nos dados observados.</p>
+</div>
+<div id="exercicios" class="section level1">
+<h1>Exercícios</h1>
+<ol style="list-style-type: decimal">
+<li><p>Considere o lançamento de uma moeda não viesada, e seja <span class="math display">\[
+X = \left\{\begin{array}{ll}
+1, &amp; \text{se o lançamento resultou em cara}\\
+0, &amp; \text{caso contrário } \\
+\end{array} \right.
+\]</span> Além disso, considere o lançamento de um dado não-viesado e seja <span class="math inline">\(Y\)</span> a face de um dado voltada para cima. Seja <span class="math inline">\(Z=X \times Y\)</span>. Qual é a densidade de <span class="math inline">\(Z\)</span>? Justifique.</p></li>
+<li><p>A função dbinom do R fornece a densidade de uma distribuição binomial. Utilizando essa função, calcule a probabilidade de se observar 1, 2, 9 ou 10 caras em 10 lançamentos de uma moeda não viesada.</p></li>
+<li><p>Repita o exercício anterior, agora assumindo que a moeda tenha probabilidade de cara de 10%. Interpretando porque o valor obtido neste exercício é maior que o anterior.</p></li>
+<li><p>Qual variável aleatória tem variância menor? <span class="math inline">\(X \sim Binom(100,1/2)\)</span> ou <span class="math inline">\(Y \sim Binom(100,0.001)\)</span>? Interprete esse resultado.</p></li>
+</ol>
+</div>
+<div id="referencias" class="section level1">
+<h1>Referências</h1>
+</div>

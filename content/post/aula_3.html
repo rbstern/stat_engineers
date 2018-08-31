@@ -1,7 +1,7 @@
 ---
 title: "Aula 3 e Aula 4 - Visualização de dados"
 author: "Rafael Izbicki e Rafael Bassi Stern"
-date: '2018-08-17'
+date: '2018-08-26'
 bibliography: ipaee.bib
 output: 
   html_document:
@@ -63,46 +63,52 @@ ggplot(aes(x = var1),
   geom_density(color=&quot;red&quot;) +
   xlab(&quot;valores&quot;) + ylab(&quot;densidade&quot;)</code></pre>
 <p><img src="/post/aula_3_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Às vezes, o histograma também não resume suficientemente as observações. Por exemplo, a figura abaixo apresenta histogramas de efeito para adubos com e sem nitrato. Como existe muita justaposição entre os histogramas é difícil comparar o efeito de cada adubo.</p>
-<pre class="r"><code>ggplot(aes(x =  efeito, color = nitrato),
-       data = adubo) +
+<pre class="r"><code>ggplot(data=iris,aes(x =  Sepal.Length, fill = Species)) +
   geom_histogram()</code></pre>
 <p><img src="/post/aula_3_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data=iris,aes(x =  Sepal.Length)) +
+  geom_histogram()+facet_grid(Species~.)</code></pre>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Às vezes, o histograma também não resume suficientemente as observações. Por exemplo, a figura abaixo apresenta histogramas de efeito para adubos com e sem nitrato. Como existe muita justaposição entre os histogramas é difícil comparar o efeito de cada adubo.</p>
+<pre class="r"><code>ggplot(aes(x =  efeito, fill = nitrato),
+       data = adubo) +
+  geom_histogram()</code></pre>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Para resolver este problema, veremos a seguir um gráfico que resume as observações ainda mais que o histograma.</p>
 </div>
 <div id="box-plot" class="section level3">
 <h3>Box plot</h3>
 <p>Um <strong>box plot</strong> <span class="citation">(Tukey 1977)</span> é um gráfico para visualizar uma única variável que consiste em apresentar visualmente 5 medidas resumo. Antes de descrever estas medidas, é útil visualizar um boxplot. A seguir, obtemos no <strong>R</strong> um box plot para o comprimento das sépalas no banco de dados <em>iris</em>:</p>
 <pre class="r"><code>boxplot(iris$Sepal.Length, ylab = &quot;Comprimento da sépala&quot;)</code></pre>
-<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>O box plot contém 5 traços principais. O traço em negrito dentro do retângulo indicam a mediana (Q2) das observações. Os traços nos limites do retângulo indicam o primeiro (Q1) e o terceiro (Q3) quartis. Assim, observamos que cerca de 50% das observações estão dentro do retângulo e que um valor típico para as observações é representado pelo traço em negrito. A seguir, lembre que o intervalo interquartílico (IQR) é definido como <span class="math inline">\(Q3-Q1\)</span>. Definimos o limite superior (LS) e inferior (LI) como, respectivamente, <span class="math inline">\(LS=Q3+1.5*IQR\)</span> e <span class="math inline">\(LI=Q1-1.5*IQR\)</span>. Os limites das linhas superior e inferior no boxplot são, respectivamente, a maior observação menor que LS e a menor observação maior que LI. Esta é uma faixa de valores tal que seria improvável obter uma observação fora dela. Observações fora destes limites são representadas no boxplot por asteriscos e são comumente chamadas de “outliers”.</p>
 <p>Muitas vezes, é útil separar as observações em grupos e construir boxplots para cada um destes. O exemplo a seguir, constrói boxplots para o efeito do adubo quando separamos as observações em 2 grupos: sem ou com nitrato.</p>
 <pre class="r"><code>ggplot(aes(y = efeito, 
            x = nitrato, 
-           color = nitrato), 
+           fill = nitrato), 
        data = adubo) + 
   geom_boxplot()</code></pre>
-<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Note que, ainda que a mediana no grupo com nitrato seja ligeiramente superior à mediana do grupo sem nitrato, a diferença entre estes valores é insignificante em relação à variabilidade dos dados. Esta conclusão é obtida visualmente vendo que os retângulos vermelho e azul estão praticamente sobrepostos. Este é um cenário em que esperamos que não exista diferença nos efeitos dos dois tipos de adubo.</p>
 <p>Por outro lado, podemos separar as observações nos grupos: sem e com fosfato. Neste caso, obtemos as figuras:</p>
 <pre class="r"><code>ggplot(aes(y = efeito, 
            x = fosfato,
-           color = fosfato), 
+           fill = fosfato), 
        data = adubo) + geom_boxplot()</code></pre>
-<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Neste caso, observe que a diferença entre as medianas de cada grupo é grande em relação à variabilidade dos dados. Por exemplo, verificamos que os boxplots não tem sobreposição. Neste caso, é razoável esperar que os adubos com fosfato tenham um efeito maior do que os adubos sem fosfato.</p>
 </div>
 </div>
 <div id="visualizando-duas-variaveis" class="section level2">
 <h2>Visualizando duas variáveis</h2>
-<div id="scatter-plot" class="section level3">
-<h3>Scatter plot</h3>
-<p>Por vezes, estamos interessados em visualizar a relação entre duas variáveis contínuas. Neste caso, podemos designar um eixo para cada variável e desenhar um ponto para cada observação. Este tipo de gráfico é chamado de <strong>scatter plot</strong>.</p>
-<p>No <strong>R</strong> é possível obter o scatter plot usando o comando <em>plot()</em>. A seguir, ilustramos este comando no banco de dados <em>iris</em> usando como variáveis o comprimento e largura das pétalas.</p>
+<div id="grafico-de-dispersao-scatter-plot" class="section level3">
+<h3>Gráfico de dispersão (Scatter plot)</h3>
+<p>Por vezes, estamos interessados em visualizar a relação entre duas variáveis contínuas. Neste caso, podemos designar um eixo para cada variável e desenhar um ponto para cada observação. Este tipo de gráfico é chamado de <strong>gráfico de dispersão</strong>.</p>
+<p>No <strong>R</strong> é possível obter o gráfico de dispersão usando o comando <em>plot()</em>. A seguir, ilustramos este comando no banco de dados <em>iris</em> usando como variáveis o comprimento e largura das pétalas.</p>
 <pre class="r"><code>plot(iris$Petal.Length, iris$Petal.Width,
      xlab=&quot;Comprimento da petala&quot;,
      ylab=&quot;Largura da petala&quot;)</code></pre>
-<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Note que, em média, quanto maior o comprimento da pétala, maior será a sua largura. Mais do que isso, parece haver uma relação linear entre estas quantidades. É possível ajustar uma reta que aproxima esta relação linear entre as observações usando o seguinte comando no <strong>R</strong>:</p>
 <pre class="r"><code>ggplot(aes(x = Petal.Length , y = Petal.Width),
        data = iris) +
@@ -110,7 +116,7 @@ ggplot(aes(x = var1),
   geom_smooth(method=&#39;lm&#39;, color = &quot;red&quot;) +
   xlab(&quot;Comprimento da petala&quot;) +
   ylab(&quot;Largura da petala&quot;)</code></pre>
-<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="/post/aula_3_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -123,18 +129,26 @@ ggplot(aes(x = var1),
 <li><p>Uma pesquisadora mediu as alturas de <span class="math inline">\(9\)</span> indivíduos, apresentadas a seguir:</p></li>
 </ol>
 <pre><code>## [1] 149 163 168 169 172 173 175 180 181</code></pre>
-<ol style="list-style-type: lower-alpha">
-<li><p>Calcule a média e a variância das alturas.</p></li>
-<li><p>Verifique se há algum <em>outlier</em> neste banco de dados e descreva o significado deste termo.</p></li>
-</ol>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Calcule a média e a variância das alturas.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Verifique se há algum <em>outlier</em> neste banco de dados e descreva o significado deste termo.</li>
+</ol></li>
+</ul>
 <ol start="5" style="list-style-type: decimal">
 <li>Um pesquisador está interessado em estudar como varia o percentual de aproveitamento do petróleo em função da temperatura de alimentação do destilador. Foram consideradas duas diferentes temperaturas (150 ou 300 graus Celsius) e uma amostra de tamanho <span class="math inline">\(9\)</span> para cada uma destas.</li>
 </ol>
 
-<ol style="list-style-type: lower-alpha">
-<li><p>Indique uma medida de centralidade e uma medida de dispersão para cada uma das temperaturas testadas e interprete-as.</p></li>
-<li><p>Esboce um boxplot para o aproveitamento de petróleo para cada temperatura testada. Interprete os boxplots e compare a diferença entre os aproveitamentos para cada temperatura.</p></li>
-</ol>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Indique uma medida de centralidade e uma medida de dispersão para cada uma das temperaturas testadas e interprete-as.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Esboce um boxplot para o aproveitamento de petróleo para cada temperatura testada. Interprete os boxplots e compare a diferença entre os aproveitamentos para cada temperatura.</li>
+</ol></li>
+</ul>
 <ol start="6" style="list-style-type: decimal">
 <li>O boxplot indica a mediana e o intervalo interquartílico de uma variável. Quais são possíveis vantagens destas medidas de centralidade e variabilidade em relação à média e ao desvio padrão?</li>
 </ol>
