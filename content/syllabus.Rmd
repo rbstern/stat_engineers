@@ -33,7 +33,16 @@ Evite o uso de abreviações, acrônimos e gírias nos e-mails.
 
 ### Objetivos do curso
 
-- 
+- Dominar técnicas computacionais para a
+construção e manipulação de bancos de dados.
+
+- Visualizar e interpretar as variáveis no
+banco de dados e relações entre estas.
+
+- Compreender conceitos fundamentais da Teoria Estatística.
+
+- Utilizar e interpretar o resultado de modelos lineares,
+bem como compreender as suposições necessárias para o uso destes.
 
 <br/>
 
@@ -43,22 +52,20 @@ Evite o uso de abreviações, acrônimos e gírias nos e-mails.
 
 ### Material do curso
 
-- [Notas de aula](https://www.overleaf.com/read/fjdsbxwydcnf) estão 
+- [Notas de aula](https://www.rafaelstern.science/classes/2018_2_etec/) estão 
   disponíveis online. Vocês deverão baixar, imprimir e
   olhar rapidamente o conteúdo antes de cada classe.
+  Também deverão rodar o código existente nelas.
   
 - Os seguintes livros são opcionais e 
   fornecem explicações detalhadas,
   tópicos extras, aplicações interessantes e
   exercícios adicionais:
 
+    - R for data science - Wickham.
     - A First Course in Probability - Ross.
-
-    - Introduction to Probability Models - Ross.
-
-    - An introduction to probability theory and its applications - Feller.
-
-    - Probabilidade: um curso em nível intermediário - James.
+    - Estatística Básica - Morettin.
+    - Statistics and Scientific Method - Diggle e Chetwynd.
 								
 # Atividades do Curso
 								
@@ -77,7 +84,7 @@ sem a sua respectiva linha de raciocínio
 
 ### Listas de exercícios
 
-- **Frequência**: quinzenal.
+- **Frequência**: ao final de toda aula.
 
 - **Geral**: Os alunos são incentivados a 
 discutir comigo e entre si as listas de exercícios.
@@ -110,14 +117,14 @@ vocês não poderão consultar qualquer material durante as provas.
 Exames não poderão ser realizados em outro dia que não a data oficial.
 Exceções devem ser discutidas ao menos uma semana antes comigo.
 
-- **Prova 1**: Ocorrerá no dia XX/XX. 
+- **Prova 1**: Ocorrerá no dia 13/09. 
 Incluirá todos os tópicos vistos em aula.
 
-- **Prova 2**: Ocorrerá no dia XX/XX. 
+- **Prova 2**: Ocorrerá no dia 18/10. 
 Incluirá todos os tópicos vistos em aula,
 com ênfase no material após a Prova 1.
 
-- **Prova 3**: Ocorrerá no dia XX/XX
+- **Prova 3**: Ocorrerá no dia 22/11
 Incluirá todos os tópicos aprendidos em aula,
 com ênfase no material após a Prova 2.
 
@@ -136,10 +143,10 @@ podendo sua nota aumentar ou diminuir.
 
 ```{r echo = FALSE, message = FALSE}
 library(magrittr)
-keys = c("Participação", "Seminário",
+keys = c("Participação",
          "Prova 1", "Prova 2", "Prova 3")
-values = c("0.05", "0.15", 
-           "0.2", "0.3", "0.3")
+values = c("0.1", 
+           "0.3", "0.3", "0.3")
 pesos = tibble::tibble(Avaliacao = keys, 
                        Peso = values)
 DT::datatable(pesos,
