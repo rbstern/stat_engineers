@@ -1,0 +1,36 @@
+---
+title: "Lista de exercicios 1"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '2018-09-03'
+output: html_document
+---
+
+
+
+<ol style="list-style-type: decimal">
+<li><span class="citation">[@Wickham2016]</span> Para este exercício, carregue o banco de dados “diamonds” do pacote “tidyverse”:</li>
+</ol>
+<pre><code>library(tidyverse)
+data(diamonds)</code></pre>
+<p>Um dicionário para este banco de dados pode ser obtido por meio do comando:</p>
+<pre><code>help(diamonds)</code></pre>
+<ul>
+<li><p>Classifique as variáveis “carat”, “cut”, “color”, “clarity” e “price” quanto ao seu tipo.</p></li>
+<li><p>Utilize medidas resumo e gráficos adequados para descrever cada uma das variáveis acima. Interprete os resultados.</p></li>
+<li><p>Qual variável no banco de dados está mais associada ao preço de um diamante?</p></li>
+<li><p>Use boxplots para investigar a associação entre o preço de um diamante e a qualidade do seu corte. Utilize o item acima para explicar este resultado.</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><span class="citation">[@Wickham2016]</span> Para este exercício, carregue o banco de dados “mpg” e seu dicionário:</li>
+</ol>
+<pre><code>library(tidyverse)
+data(mpg)
+help(mpg)</code></pre>
+<ul>
+<li><p>Classifique o tipo de cada uma das variáveis no banco de dados.</p></li>
+<li><p>Construa um gráfico de dispersão entre as variáveis “hwy” e “cyl”. Que tipo de associação linear você espera entre estas variáveis? O resultado é compatível com sua intuição?</p></li>
+<li><p>Utilizando o seguinte comando é possível visualizar três variáveis simultaneamente:</p></li>
+</ul>
+<pre><code>ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))</code></pre>
+<p>No eixo x observamos a cilindrada do motor, no eixo y o número de milhas percorridas por litro de combustível e a cor indica cada tipo de carro. Interprete o gráfico obtido indicando como o eixo x se relaciona com o eixo y. Existe algum tipo de carro que é diferente das demais em relação a esta relação? Por que você acha que este é o caso?</p>

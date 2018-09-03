@@ -1,0 +1,72 @@
+---
+title: "Lista de exercicios 1"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+output: html_document
+---
+
+1. [@Wickham2016] Para este exercício, carregue
+o banco de dados "diamonds" do pacote "tidyverse":
+
+```
+library(tidyverse)
+data(diamonds)
+```
+
+Um dicionário para este banco de dados
+pode ser obtido por meio do comando:
+
+```
+help(diamonds)
+```
+
+- Classifique as variáveis "carat", "cut",
+"color", "clarity" e "price" quanto ao seu tipo.
+
+- Utilize medidas resumo e gráficos adequados para 
+descrever cada uma das variáveis acima.
+Interprete os resultados.
+
+- Qual variável no banco de dados está
+mais associada ao preço de um diamante?
+
+- Use boxplots para investigar a associação entre
+o preço de um diamante e a qualidade do seu corte.
+Utilize o item acima para explicar este resultado.
+
+2. [@Wickham2016] Para este exercício, carregue
+o banco de dados "mpg" e seu dicionário:
+
+```
+library(tidyverse)
+data(mpg)
+help(mpg)
+```
+
+- Classifique o tipo de 
+cada uma das variáveis no banco de dados.
+
+- Construa um gráfico de dispersão entre
+as variáveis "hwy" e "cyl".
+Que tipo de associação linear você espera
+entre estas variáveis?
+O resultado é compatível com sua intuição?
+
+- Utilizando o seguinte comando é possível
+visualizar três variáveis simultaneamente:
+
+```
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+No eixo x observamos a cilindrada do motor,
+no eixo y o número de milhas percorridas por
+litro de combustível e a cor indica cada tipo de carro.
+Interprete o gráfico obtido indicando como
+o eixo x se relaciona com o eixo y.
+Existe algum tipo de carro que é diferente das demais
+em relação a esta relação?
+Por que você acha que este é o caso?
+
+
+
