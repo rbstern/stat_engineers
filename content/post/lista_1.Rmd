@@ -68,3 +68,35 @@ o eixo x se relaciona com o eixo y.
 Existe algum tipo de carro que é diferente das demais
 em relação a esta relação?
 Por que você acha que este é o caso?
+
+3. Um baralho sem curingas é embaralhado.
+Duas cartas são retiradas do topo do baralho.
+Defina os eventos:
+$A:$ a primeira carta é um rei,
+$B:$ a segunda carta é um rei,
+$C:$ a primeira carta é de espadas,
+$D:$ a primeira carta é uma rainha.
+
+- Para cada possível dupla de eventos,
+determine se estes são mutuamente exclusivos.
+Determine também se eles são independentes.
+
+- Calcule $P(A \textbf{ e } B \textbf{ e } C)$.
+
+- Calcule $P(A \textbf{ ou } B )$.
+
+- Calcule $P((A \textbf{ ou } D) \textbf{ e } B)$.
+
+4. Recorde-se que uma Binomial tem como parâmetros
+"n", o número de lançamento e "$\theta$", a
+probabilidade de cada lançamento ser cara.
+
+- Como o valor esperado da binomial varia
+de acordo com $n$ e $\theta$?
+
+- Como a variância da binomial varia
+de acordo com $n$ e $\theta$?
+Qual o valor de $\theta$ que
+maximiza a variância da binomial?
+
+- Interprete os resultados acima.
