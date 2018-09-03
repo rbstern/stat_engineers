@@ -3,6 +3,7 @@ title: "Lista de exercicios 1"
 author: "Rafael Izbicki e Rafael Bassi Stern"
 date: '`r format(Sys.Date(), "%Y-%m-%d")`'
 output: html_document
+bibliography: ipaee.bib
 ---
 
 1. [@Wickham2016] Para este exercício, carregue
@@ -67,6 +68,3 @@ o eixo x se relaciona com o eixo y.
 Existe algum tipo de carro que é diferente das demais
 em relação a esta relação?
 Por que você acha que este é o caso?
-
-
-

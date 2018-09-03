@@ -3,12 +3,13 @@ title: "Lista de exercicios 1"
 author: "Rafael Izbicki e Rafael Bassi Stern"
 date: '2018-09-03'
 output: html_document
+bibliography: ipaee.bib
 ---
 
 
 
 <ol style="list-style-type: decimal">
-<li><span class="citation">[@Wickham2016]</span> Para este exercício, carregue o banco de dados “diamonds” do pacote “tidyverse”:</li>
+<li><span class="citation">(Wickham and Grolemund 2016)</span> Para este exercício, carregue o banco de dados “diamonds” do pacote “tidyverse”:</li>
 </ol>
 <pre><code>library(tidyverse)
 data(diamonds)</code></pre>
@@ -21,7 +22,7 @@ data(diamonds)</code></pre>
 <li><p>Use boxplots para investigar a associação entre o preço de um diamante e a qualidade do seu corte. Utilize o item acima para explicar este resultado.</p></li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li><span class="citation">[@Wickham2016]</span> Para este exercício, carregue o banco de dados “mpg” e seu dicionário:</li>
+<li><span class="citation">(Wickham and Grolemund 2016)</span> Para este exercício, carregue o banco de dados “mpg” e seu dicionário:</li>
 </ol>
 <pre><code>library(tidyverse)
 data(mpg)
@@ -34,3 +35,8 @@ help(mpg)</code></pre>
 <pre><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = class))</code></pre>
 <p>No eixo x observamos a cilindrada do motor, no eixo y o número de milhas percorridas por litro de combustível e a cor indica cada tipo de carro. Interprete o gráfico obtido indicando como o eixo x se relaciona com o eixo y. Existe algum tipo de carro que é diferente das demais em relação a esta relação? Por que você acha que este é o caso?</p>
+<div id="refs" class="references">
+<div id="ref-Wickham2016">
+<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. “ O’Reilly Media, Inc.”</p>
+</div>
+</div>
