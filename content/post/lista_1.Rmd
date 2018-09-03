@@ -69,7 +69,12 @@ Existe algum tipo de carro que é diferente das demais
 em relação a esta relação?
 Por que você acha que este é o caso?
 
-3. Um baralho sem curingas é embaralhado.
+3. Prove que para quaisquer valores de 
+$X_1, X_2, \ldots, X_n$,
+$$\frac{\sum_{i=1}^{n}{(X_i-\bar{X})^2}}{n} 
+= \frac{\sum_{i=1}^{n}{X_i^2}}{n}-\bar{X}^2$$
+
+4. Um baralho sem curingas é embaralhado.
 Duas cartas são retiradas do topo do baralho.
 Defina os eventos:
 $A:$ a primeira carta é um rei,
@@ -87,8 +92,8 @@ Determine também se eles são independentes.
 
 - Calcule $P((A \textbf{ ou } D) \textbf{ e } B)$.
 
-4. Recorde-se que uma Binomial tem como parâmetros
-"n", o número de lançamento e "$\theta$", a
+5. Recorde-se que uma Binomial tem como parâmetros
+n, o número de lançamento e $\theta$, a
 probabilidade de cada lançamento ser cara.
 
 - Como o valor esperado da binomial varia
@@ -100,3 +105,19 @@ Qual o valor de $\theta$ que
 maximiza a variância da binomial?
 
 - Interprete os resultados acima.
+
+6. Um sistema tem $10$ componentes
+que falham independentemente com probabilidade $0.1$.
+
+- Considere que o sistema tem os componentes em série,
+isto é, ele falha se qualquer um dos componentes falhar.
+Qual a probabilidade de o sistema falhar?
+
+- Considere que o sistema tem os componentes em paralelos,
+isto é, ele falha somente se todos os componentes falharem.
+Qual a probabilidade de o sistema falhar.
+
+- Considere que dois sub-sistemas são formados
+a partir de $5$ componentes em série.
+Se o sistema é composto pelos dois sub-sistemas em paralelo,
+qual é a probabilidade de ele falhar?
