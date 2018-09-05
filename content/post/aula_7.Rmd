@@ -183,4 +183,10 @@ que o anterior.
 $X \sim Binom(100,1/2)$ ou 
 $Y \sim Binom(100,0.001)$? Interprete esse resultado.
 
+4. Se $X \sim Binom(1000, 0.5)$, calcule
+$E[X]$ e $P(X = E[X])$. Interprete estes valores.
+
+5. Se $X \sim Binom(n,\theta)$, qual
+o valor de $\theta$ que maximiza $Var[X]$?
+
 # Referências 
