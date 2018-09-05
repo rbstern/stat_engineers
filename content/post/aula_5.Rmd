@@ -404,7 +404,7 @@ versus a temperatura
 
     g. Adicione a esse gráfico uma curva que descreva a tendência dessa relação
 
-    h. Faça novamente o gráfico do item 3, mas dessa vez separando dias de trabalho com dias de não trabalho
+    h. Faça novamente o gráfico do item f, mas dessa vez separando dias de trabalho com dias de não trabalho
 
 
 # Referências 
