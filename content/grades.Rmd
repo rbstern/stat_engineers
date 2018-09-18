@@ -17,16 +17,27 @@ está provado que você desrespeitou o
 código de ética desta disciplina e você está reprovado.
 
 ```{r echo = FALSE}
-#`%>%` = magrittr::`%>%`
-#`%<>%` = magrittr::`%<>%`
+`%>%` = magrittr::`%>%`
+`%<>%` = magrittr::`%<>%`
+```
+
+### Notas
+```{r echo = FALSE}
+grade_table = read.csv("./grades.csv")
+grade_table %>% 
+  dplyr::select(-Curso) %>%
+  DT::datatable(escape = FALSE,
+                options = list(dom = 'ftip'),
+                rownames = FALSE)
 ```
 
 ### Gráficos
 
 ```{r echo = FALSE}
-#grade_table %>%
-#  tidyr::gather(avaliacao, nota, -RA) %>%
-#  ggplot2::ggplot(ggplot2::aes(x = avaliacao, y = nota)) +
-#  ggplot2::geom_boxplot() +
-#  ggplot2::xlab("avaliação")
+grade_table %>%
+  dplyr::select(-Curso) %>%
+  tidyr::gather(avaliacao, nota, -RA) %>%
+  ggplot2::ggplot(ggplot2::aes(x = avaliacao, y = nota)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::xlab("avaliação")
 ```

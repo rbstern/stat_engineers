@@ -1,7 +1,7 @@
 ---
 title: "Aula 7 - Distribuição Binomial"
 author: "Rafael Izbicki e Rafael Bassi Stern"
-date: '`r format(Sys.Date(), "%Y-%m-%d")`'
+date: '2018-09-05'
 bibliography: ipaee.bib
 output: 
   html_document:
@@ -188,5 +188,22 @@ $E[X]$ e $P(X = E[X])$. Interprete estes valores.
 
 5. Se $X \sim Binom(n,\theta)$, qual
 o valor de $\theta$ que maximiza $Var[X]$?
+
+6. Em uma pesquisa de intenção de voto,
+100 eleitores são entrevistados.
+Seja $X$ o número de eleitores de um candidato A entre
+os eleitores entrevistados.
+Considere que 30\% dos eleitores no país pretendem votar em  A.
+
+* a. Qual é a densidade de $X$?
+
+* b. Se você fosse dar um  chute para X antes
+da amostra ser coletada, qual seria ele?
+
+7. Seja $X$ a face voltada para cima em um dado honesto,
+e $Y$ a face voltada para cima em um dado com probabilidade
+0.5 da face ``1'' e 0.1 das faces restantes.
+Seja $Z = X+Y$, isto é, a soma das duas faces observadas.
+Quanto vale a densidade de $Z$ nos pontos $z=0$, $z=2$ e $z=3$?
 
 # Referências 

@@ -1,0 +1,94 @@
+---
+title: "Prova 1"
+author: "Rafael Izbicki e Rafael Stern"
+date: '2018-09-13'
+bibliography: ipaee.bib
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+data(airquality)
+```
+
+1. Pesquisadores mediram diversas vezes 
+a quantidade de ozônio em New York.
+O gráfico abaixo resume estas medições
+separando-as por mês do ano em que ocorreram.
+A codificação é tal que o mês 1 é janeiro e
+os demais são dispostos sequencialmente.
+```{r echo = FALSE, message = FALSE, warning = FALSE,  fig.align = 'center', out.width = '50%'}
+airquality %>%
+  as.tibble() %>%
+  ggplot(aes(y = Ozone, x = as.factor(Month))) +
+  xlab("Mês") + ylab("Ozônio (ppb)") +
+  geom_boxplot()
+```
+
+* a. Indique de forma aproximada uma medida de centralidade e
+uma medida de dispersão para a quantidade de ozônio medido em
+cada mês estudado.
+
+* b. Usando as medidas acima e o gráfico apresentado,
+argumente se há diferenças na quantidade de ozônio medido
+entre os meses estudados.
+Qual é o comportamento da quantidade de ozônio no ar
+ao longo dos meses estudados?
+
+* c. Possíveis alternativas ao gráfico apresentado seriam
+um scatter plot por mês ou um histograma por mês.
+Estes gráficos facilitariam ou dificultariam
+a comparação realizada no item anterior?
+
+* d. O gráfico apresenta alguns pontos isolados.
+Explique o significado destes pontos e
+indique algumas razões que
+poderiam explicar a existência deles.
+
+2. Um estudante cria um banco de dados com 2 variáveis.
+Na primeira variável, para cada dia,
+o estudante codifica o valor $1$ se ele foi
+para a aula das $8$ da manhã e $0$ se ele
+não conseguiu acordar e faltou à aula.
+A segunda variável consiste
+no número de acidentes de carro por dia.
+Considere que o estudante mora em
+uma região em que há neve no inverno.
+
+* a. O estudante verificou que, em geral,
+os dias em que há mais acidentes de carro são
+aqueles em que ele não acorda para a aula.
+Qual você espera que seja a correlação entre
+a primeira e a segunda variável 
+($>0$, $<0$ ou $=0$)?
+
+* b. Baseado nesta observação,
+o estudante conclui que pode reduzir
+o número de acidentes de trânsito
+frequentando mais as aulas das 8 da manhã.
+Explique a falha no raciocínio do estudante e
+indique uma possível justificativa para
+a correlação observada no item anterior.
+
+3. Um sistema é composto por 6 componentes que
+falham independentemente com probabilidade $p$.
+O sistema principal é organizado por
+3 subsistemas em paralelo.
+O primeiro subsistema consiste de um único componente,
+o segundo consiste de dois componentes em série e
+o terceiro consiste de três componentes em paralelo.
+Lembre que, enquanto que um sistema em série falha
+se e somente se qualquer um de seus componentes falharem,
+um sistema em paralelo falha se e somente se
+todos seus componentes falharem.
+
+* a. Determine a probabilidade de cada subsistema falhar.
+ 
+* b. Determine a probabilidade do sistema principal falhar.
+
+4. Prove que $Var[X] = E[X^2] - E[X]^2$.
