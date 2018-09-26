@@ -1,0 +1,27 @@
+---
+title: "Aula 9: Inferência Estatística"
+author: "Rafael Stern"
+date: "2018-09-26"
+bibliography: ipaee.bib
+output: html_document
+---
+
+Nesta aula deixaremos para trás
+o estudo do idioma da Probabilidade e
+começaremos a Inferência Estatística.
+A Probabilidade é um idioma extremamente elegante e
+com desenvolvimento muito mais geral que
+a introdução que almejamos nesse curso.
+Para aqueles que tiverem curiosidade sobre o assunto,
+muito mais informação pode ser obtida 
+nas [notas de aula de Probabilidade](https://v1.overleaf.com/read/fjdsbxwydcnf).
+
+Para a introdução à Inferência Estatística,
+acompanharemos de perto [@Diggle2011]:
+
+- 2018/09/20: Capítulo 2 - Introdução à experimentação e
+à inferência estatística.
+
+- 2018/09/26: Capítulo 5: Introdução ao planejamentos de
+experimentos: aleatorização e controle.
+
