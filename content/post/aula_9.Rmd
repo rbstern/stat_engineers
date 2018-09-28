@@ -25,3 +25,4 @@ acompanharemos de perto [@Diggle2011]:
 - 2018/09/26: Capítulo 5: Introdução ao planejamentos de
 experimentos: aleatorização e controle.
 
+- 2018/09/27: Capítulo 6: Comparação de duas populações pareadas.
