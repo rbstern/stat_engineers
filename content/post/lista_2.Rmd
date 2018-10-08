@@ -1,0 +1,109 @@
+---
+title: "Lista de exercicios 2"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '2018-10-03'
+output: html_document
+bibliography: ipaee.bib
+---
+
+> 1. Dois pesquisadores desejam
+avaliar o voto de eleitores brasileiros em
+uma determinada cidade. O primeiro pesquisador
+obtém uma lista de todos os eleitores registrados naquela cidade e
+escolhe uma amostra aleatória destes para entrevistar.
+O segundo pesquisador divide os bairros da cidade em
+regiões de acordo o nível econômico de seus moradores e
+entrevista as primeiras pessoas que encontrar nestas regiões.
+Compare os estudos de acordo com 
+a validade de seus resultados, sua eficiência e seus custos.
+
+--------- 
+
+> 2. Um médico desenvolve um remédio para
+um tipo de câncer que
+ele acredita que é mais efetivo que
+o medicamento padrão para esta doença.
+Para testar este medicamento,
+ele inscreve 30 pacientes em um ensaio clínico.
+Por razões de ética médica, 
+ele decide que os 15 pacientes com
+o câncer em estágio mais avançado devem
+receber o medicamento novo e
+os 15 pacientes remanescentes devem
+receber o medicamento padrão.
+
+a. Avalie a validade do estudo deste médico.
+Que tipo de viés você espera que ele tenha?
+
+b. Como você obteria um estudo válido?
+
+--------- 
+
+> 3. Uma escola de atletas
+deseja testar a efetividade de um determinado treino.
+Para isso, ela submete 10 atletas a duas corridas 
+de 100 metros, uma antes do treino ser feito,
+e uma após sua conclusão.
+Os tempos medidos (em segundos) para esses atletas
+percorrerem 100 metros foi
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse)
+dados <- data.frame("Atleta"=1:10,"Antes"=c(12.9, 13.5, 12.8, 15.6, 17.2, 19.2, 12.6, 15.3, 14.4, 11.3),"Depois"=c(12.7, 13.6, 12.0, 15.2, 16.8, 20.0, 12.0, 15.9, 16.0, 11.1))
+knitr::kable(dados) 
+```
+
+a. Faça um gráfico de dispersão dos dados apresentados. O que ele indica?
+
+b. Há evidência estatística para concluir que o treino é efetivo? Justifique.
+
+--------- 
+
+> 4. Um pesquisados deseja saber se, em média, o peso
+de mulheres é diferente do peso de homens. Para isso,
+mede o peso de 9 mulheres e de 9 homens.
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+women_weight <- c(38.9, 61.2, 73.3, 21.8, 63.4, 64.6, 48.4, 48.8, 48.5)
+men_weight <- c(67.8, 60, 63.4, 76, 89.4, 73.3, 67.3, 61.3, 62.4) 
+# Create a data frame
+dados <- data.frame(individuo=1:18 ,
+                    group = rep(c("Mulher", "Homem"), each = 9),
+                    weight = c(women_weight,  men_weight)
+)
+knitr::kable(dados) 
+```
+
+a. Faça um gráfico adequado para verificar se
+há indícios de que os pesos médios são diferentes.
+O que ele indica?
+
+b. Há evidência estatística para concluir que
+os pesos médios são diferentes? Justifique.
+
+c. É possível realizar
+um delineamento pareado neste problema? Justifique.
+
+--------- 
+
+> 5. Considere a seguinte maneira de gerar dados no R:
+
+```{r,eval=FALSE}
+x <- rnorm(n,mu_x,sigma)
+y <- rnorm(n,mu_y,sigma)
+```
+
+a. Faça um intervalo de confiança 95% para
+a diferença média entre x e y quando 
+$n=100$, $\mu_x=0$, $\mu_y=0$ e $\sigma=1$. O intervalo está correto?
+
+b. Repita o item anterior com $\mu_x = 2$.
+Qual é sua conclusão a partir do intervalo?
+
+c. Repita o item anterior com $n=1000$.
+Como o intervalo obtido se compara com o intervalo do item a?
+Interprete o resultado.
+
+d. Repita o item anterior com $\sigma=0.001$.
+Como o intervalo obtido se compara com o intervalo do item b?
+Interprete o resultado.
