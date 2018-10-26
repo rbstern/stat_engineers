@@ -1,0 +1,85 @@
+---
+title: "Prova 2"
+author: "Rafael Stern"
+date: '2018-10-18'
+bibliography: ipaee.bib
+output: 
+  pdf_document:
+editor_options: 
+  chunk_output_type: console
+---
+
+1. Um grande grupo de comunicação de determinado país está
+   interessado em estudar o grau de conhecimento de
+   estudantes da principal universidade do país a respeito de
+   notícias recentes de interesse geral.
+   Em particular, um dos interesses é avaliar se
+   estudantes formandos tem maior conhecimento médio de
+   notícias recentes de interesse geral do que estudantes ingressantes.
+   Para isso, para cada curso de graduação da universidade,
+   o grupo selecionou aleatoriamente um aluno ingressante e
+   um aluno formando e aplicou um teste de conhecimento de
+   notícias recentes de interesse geral. Considere que
+   essa universidade possui 71 cursos de graduação.
+   
+    a. Defina validade e eficácia de um planejamento amostral e
+    indique quais medidas neste estudo foram tomadas para
+    garantir cada uma destas propriedades.
+    
+    b. Neste estudo, é plausível que
+    as observações de um mesmo curso não sejam independentes.
+    Que transformação o pesquisador poderia aplicar nos dados para
+    poder testar sua hipótese de interesse?
+
+2. Uma indústria química conduz uma determinada
+   reação química utilizando uma
+   concentração de substrato de 1.5 mol/l.
+   Com o objetivo de verificar se
+   o aumento na concentração do substrato para 2,0 mol/l
+   diminui o tempo médio de reação, 
+   a indústria decidiu conduzir um experimento.
+   Para isso, ela conduziu a reação 10 vezes utilizando
+   a concentração de substrato de 1,5 mol/l e
+   15 vezes utilizando a concentração substrato de 2,0 mol/l e
+   mediu o tempo de reação de cada uma delas.
+   Para a concentração de 1,5 mol/l,
+   a média amostral foi de 6,23 horas e
+   o desvio padrão amostral de 0,12 minutos. 
+   Já para a concentração de 2,0 mol/l,
+   a média amostral foi de 5,37 horas e
+   o desvio padrão amostral de 0,14 minutos.
+
+    a. Construa um intervalo de confiança de 95\% 
+    para a diferença entre os tempos médio de reações com
+    as duas concentrações de substrato consideradas e 
+	  interprete o intervalo obtido.
+    
+    b. Há evidências de que
+    o tempo médio de reação é menor se
+    usamos a concentração de 2,0 mol/l
+    ao invés de 1,5 mol/l?
+    
+3. O número de bactérias em um ambiente de cultivo segue
+aproximadamente um crescimento exponencial. Isto é,
+se $N$ é o número de bactérias e $T$ é o tempo de estudo,
+temos que $N \approx \exp(\beta T)$. Ao realizar
+um cultivo de bactérias, o pesquisador observou
+os seguintes dados:
+
+```{r echo = FALSE, waning = FALSE}
+ T = 1:8
+ N = round(exp(0.5*T + rnorm(8, sd = 0.1)))
+ data.frame(N,T)
+```
+
+  a. Obtenha uma transformação dos dados tal que
+  as variáveis obtidas satisfazem uma equação linear.
+  
+  b. Derive o estimador de mínimos quadrados
+  para $\beta$ usando a equação acima.
+
+4. Explique como o problema de
+comparação de duas populações independentes é
+um caso particular de regressão linear.
+Indique as covariáveis usadas, o modelo linear e
+a interpretação de seus parâmetros.
