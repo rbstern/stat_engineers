@@ -1,0 +1,180 @@
+---
+title: "Aula 10: Revisão de regressão linear"
+author: "Rafael Stern"
+date: "2018-10-24"
+bibliography: ipaee.bib
+output: html_document
+---
+
+Em um problema de regressão desejamos explicar como
+uma variável resposta, $Y$, varia de acordo com
+uma ou mais variáveis explicativas, denotadas por $X$.
+Para tal, coletamos observações de $n$ unidades amostrais.
+$Y$ é um vetor coluna de tamanho $n$ e
+tal que $Y_i$ corresponde à
+observação da variável resposta na i-ésima unidade amostral.
+$X$ é uma matrix $n$ por $d$ tal que
+$X_{i,j}$ é a observação da $j$-ésima variável explicativa
+na $i$-ésima unidade amostral.
+
+Em um modelo de regressão linear temos que
+$Y \approx X \beta$, onde $\beta$ é
+um vetor coluna desconhecido de tamanho $d$ e
+tal que $\beta_j$ é o efeito da variável $j$ sobre $Y$.
+Mais especificamente, escrevemos
+$Y = X\beta + \epsilon$ onde $\epsilon$ é
+um vetor coluna não observado de tamanho $n$ e tal que
+$\epsilon_i$ corresponde ao erro experimental
+associado à medição de $Y_i$.
+É comum que as seguintes suposições sejam realizadas:
+
+- $\epsilon_1,\ldots,\epsilon_n$ são independentes, isto é,
+o erro experimental na i-ésima observação da variável resposta não
+influencia no erro experimental na j-ésima observação da mesma variável.
+
+- Para cada $i$, $\epsilon \sim N(0, \sigma^2)$. Isto é,
+cada um dos erros experimentais tem distribuição normal com
+médida $0$ e mesma variância. A média $0$ indica que
+erros sistemáticos não são cometidos.
+A variância constante no erro experimental entre unidades amostrais é
+frequentamente chamada de **homocedasticidade**.
+
+Ainda que $\beta$ seja desconhecido,
+podemos estimar esta quantidade e, assim,
+determinar os efeitos das variáveis explicativas
+sobre a variável resposta.
+Uma maneira de obter esta estimativa é
+pelo métodos dos mínimo quadrados.
+Se $\hat{\beta}$ é uma estimativa de $\beta$,
+então o erro quadrático associado
+a esta estimativa, $EQ(\hat{\beta})$, é:
+
+$$
+\begin{align*}
+ EQ(\hat{\beta}) 
+ &= (Y-X\hat{\beta})^{t}(Y-X\hat{\beta})
+ = \|Y-X\hat{\beta}\|_2^2
+\end{align*}
+$$
+Isto é, $EQ(\hat{\beta})$ determina o quão longe
+$X\hat{\beta}$ está longe de $Y$.
+Uma possível escolha para $\hat{\beta}$ é
+aquele valor que mais aproxima $X\hat{\beta}$ de $Y$,
+isto é, o valor de $\hat{\beta}$ que 
+minimiza $EQ(\hat{\beta})$.
+Usando cálculo matricial, é
+possível obter que este $\hat{beta}$ satisfaz:
+
+$$
+ \hat{\beta} = (X^{t}X)^{-1}X^{t}Y
+$$
+Note que $\hat{\beta}$ envolve a multiplicação e
+inversão de matrizes. Assim,
+em geral não é aconselhável calcular
+esta quantidade manualmente.
+No **R** já existem funções que
+realizam estas estimativas diretamente.
+Por exemplo, lembre que
+o banco de dados **iris** apresenta
+a largura e comprimento das pétalas e
+sépalas de 150 flores.
+Podemos explicar a largura das sépalas
+(variável resposta) por meio das
+outras três medições utilizando o comando:
+
+```{r}
+ajuste = lm(Sepal.Width~Sepal.Length+Petal.Length+Petal.Width, data = iris)
+ajuste
+```
+
+A função indica o valor de $\hat{\beta}$ que
+foi ajustado para cada variável para cada variável resposta.
+Por exemplo, o valor $\hat{\beta}$ associado ao
+comprimento da sépala foi de 0.6071. Isto indica que,
+se aumentássemos o comprimento da sépala em uma unidade e
+mantivéssemos todas as outras variáveis explicativas iguais, então
+esperaríamos que a largura da sépala aumentaria em 0.6071 unidades.
+Interpretações similares valem para o comprimento e largura da pétala.
+O **R** também indica mais informações sobre estas estimativas
+
+```{r}
+summary(ajuste)
+```
+
+Para cada coordenada de $\beta_j$,
+o **R** também indica um p-valor para o teste
+que $\beta_j = 0$. Este p-valor é 
+indicado na coluna $Pr(>|t|)$.
+A não ser que o nível de significância ($\alpha$) do teste
+seja inferior ao p-valor, 
+rejeitamos a hipótese que $\beta_j = 0$.
+Por exemplo, se adotarmos
+o nível de significância de $0.05$,
+então todos os p-valores são menores que $\alpha$
+e rejeitamos todas as hipóteses de $\beta_j = 0$.
+
+Também é possível usarmos variáveis qualitativas para
+explicar a variação de uma variável resposta quantitativa.
+Por exemplo, no caso do banco de dados iris,
+poderíamos explicar como a largura da sépala varia por espécie.
+De forma intuitiva, podemos observar
+esta variação por meio de um boxplot:
+
+```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+ggplot(iris) +
+  geom_boxplot(aes(y = Petal.Length,
+                   x = Species))
+```
+
+Uma forma utilizar uma variável qualitativa como
+uma variável resposta em uma regressão linear é
+por meio da criação de **variáveis dummy**.
+Se uma variável explicativa pode assumir $k$ categorias,
+então podemos criar $k-1$ colunas na matriz $X$ tais que
+a $i$-ésima linha e $j$-ésima coluna é
+a indicadora que a variável qualitativa assumiu a categoria $j+1$
+na $i$-ésima unidade amostral.
+Esta técnica é ilustrada a seguir:
+
+```{r}
+exemplos = sample(1:150, 10)
+XX = model.matrix(Petal.Length~Species, data = iris)
+data.frame(Species = iris$Species[exemplos], XX[exemplos,])
+```
+
+Variáveis dummy são criadas automaticamente
+pela função lm quando
+uma variável explicativa é um fator.
+Este procedimento é ilustrado a seguir:
+
+```{r message = FALSE, warning = FALSE}
+ajuste <- lm(Petal.Length~Species,
+             data = iris)
+summary(ajuste)
+```
+
+Note que a categoria *setosa* foi tomada como referência.
+Neste caso, o intercepto, $1.462$, é a média estimada para
+uma unidade amostral desta espécie.
+Por outro lado, os parâmetros correspondentes a
+cada outra categoria correspondem ao quanto
+a média desta categoria difere da média de *setosa*.
+Por exemplo, o parâmetro associado a *versicolor* é
+2.798 e, portanto, o modelo estima que, em média,
+o comprimento da pétala de uma flor da espécie versicolor é
+2.798 cm maior que a pétala de uma flor da espécie setosa.
+Combinando este valor com a estimativa do intercepto,
+obtemos que o comprimento de
+uma pétala de uma flor da espécie versicolor mede,
+em média, $1.462+2.798$ cm.
+
+É possível realizar uma regressão linear em 
+todas as variáveis presentes em um banco de dados,
+como ilustrado a seguir
+
+```{r}
+ajuste <- lm(Petal.Length~.,
+             data = iris)
+summary(ajuste)
+```

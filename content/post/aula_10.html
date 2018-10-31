@@ -1,0 +1,132 @@
+---
+title: "Aula 10: Revisão de regressão linear"
+author: "Rafael Stern"
+date: "2018-10-24"
+bibliography: ipaee.bib
+output: html_document
+---
+
+
+
+<p>Em um problema de regressão desejamos explicar como uma variável resposta, <span class="math inline">\(Y\)</span>, varia de acordo com uma ou mais variáveis explicativas, denotadas por <span class="math inline">\(X\)</span>. Para tal, coletamos observações de <span class="math inline">\(n\)</span> unidades amostrais. <span class="math inline">\(Y\)</span> é um vetor coluna de tamanho <span class="math inline">\(n\)</span> e tal que <span class="math inline">\(Y_i\)</span> corresponde à observação da variável resposta na i-ésima unidade amostral. <span class="math inline">\(X\)</span> é uma matrix <span class="math inline">\(n\)</span> por <span class="math inline">\(d\)</span> tal que <span class="math inline">\(X_{i,j}\)</span> é a observação da <span class="math inline">\(j\)</span>-ésima variável explicativa na <span class="math inline">\(i\)</span>-ésima unidade amostral.</p>
+<p>Em um modelo de regressão linear temos que <span class="math inline">\(Y \approx X \beta\)</span>, onde <span class="math inline">\(\beta\)</span> é um vetor coluna desconhecido de tamanho <span class="math inline">\(d\)</span> e tal que <span class="math inline">\(\beta_j\)</span> é o efeito da variável <span class="math inline">\(j\)</span> sobre <span class="math inline">\(Y\)</span>. Mais especificamente, escrevemos <span class="math inline">\(Y = X\beta + \epsilon\)</span> onde <span class="math inline">\(\epsilon\)</span> é um vetor coluna não observado de tamanho <span class="math inline">\(n\)</span> e tal que <span class="math inline">\(\epsilon_i\)</span> corresponde ao erro experimental associado à medição de <span class="math inline">\(Y_i\)</span>. É comum que as seguintes suposições sejam realizadas:</p>
+<ul>
+<li><p><span class="math inline">\(\epsilon_1,\ldots,\epsilon_n\)</span> são independentes, isto é, o erro experimental na i-ésima observação da variável resposta não influencia no erro experimental na j-ésima observação da mesma variável.</p></li>
+<li><p>Para cada <span class="math inline">\(i\)</span>, <span class="math inline">\(\epsilon \sim N(0, \sigma^2)\)</span>. Isto é, cada um dos erros experimentais tem distribuição normal com médida <span class="math inline">\(0\)</span> e mesma variância. A média <span class="math inline">\(0\)</span> indica que erros sistemáticos não são cometidos. A variância constante no erro experimental entre unidades amostrais é frequentamente chamada de <strong>homocedasticidade</strong>.</p></li>
+</ul>
+<p>Ainda que <span class="math inline">\(\beta\)</span> seja desconhecido, podemos estimar esta quantidade e, assim, determinar os efeitos das variáveis explicativas sobre a variável resposta. Uma maneira de obter esta estimativa é pelo métodos dos mínimo quadrados. Se <span class="math inline">\(\hat{\beta}\)</span> é uma estimativa de <span class="math inline">\(\beta\)</span>, então o erro quadrático associado a esta estimativa, <span class="math inline">\(EQ(\hat{\beta})\)</span>, é:</p>
+<p><span class="math display">\[
+\begin{align*}
+ EQ(\hat{\beta}) 
+ &amp;= (Y-X\hat{\beta})^{t}(Y-X\hat{\beta})
+ = \|Y-X\hat{\beta}\|_2^2
+\end{align*}
+\]</span> Isto é, <span class="math inline">\(EQ(\hat{\beta})\)</span> determina o quão longe <span class="math inline">\(X\hat{\beta}\)</span> está longe de <span class="math inline">\(Y\)</span>. Uma possível escolha para <span class="math inline">\(\hat{\beta}\)</span> é aquele valor que mais aproxima <span class="math inline">\(X\hat{\beta}\)</span> de <span class="math inline">\(Y\)</span>, isto é, o valor de <span class="math inline">\(\hat{\beta}\)</span> que minimiza <span class="math inline">\(EQ(\hat{\beta})\)</span>. Usando cálculo matricial, é possível obter que este <span class="math inline">\(\hat{beta}\)</span> satisfaz:</p>
+<p><span class="math display">\[
+ \hat{\beta} = (X^{t}X)^{-1}X^{t}Y
+\]</span> Note que <span class="math inline">\(\hat{\beta}\)</span> envolve a multiplicação e inversão de matrizes. Assim, em geral não é aconselhável calcular esta quantidade manualmente. No <strong>R</strong> já existem funções que realizam estas estimativas diretamente. Por exemplo, lembre que o banco de dados <strong>iris</strong> apresenta a largura e comprimento das pétalas e sépalas de 150 flores. Podemos explicar a largura das sépalas (variável resposta) por meio das outras três medições utilizando o comando:</p>
+<pre class="r"><code>ajuste = lm(Sepal.Width~Sepal.Length+Petal.Length+Petal.Width, data = iris)
+ajuste</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Sepal.Width ~ Sepal.Length + Petal.Length + Petal.Width, 
+##     data = iris)
+## 
+## Coefficients:
+##  (Intercept)  Sepal.Length  Petal.Length   Petal.Width  
+##       1.0431        0.6071       -0.5860        0.5580</code></pre>
+<p>A função indica o valor de <span class="math inline">\(\hat{\beta}\)</span> que foi ajustado para cada variável para cada variável resposta. Por exemplo, o valor <span class="math inline">\(\hat{\beta}\)</span> associado ao comprimento da sépala foi de 0.6071. Isto indica que, se aumentássemos o comprimento da sépala em uma unidade e mantivéssemos todas as outras variáveis explicativas iguais, então esperaríamos que a largura da sépala aumentaria em 0.6071 unidades. Interpretações similares valem para o comprimento e largura da pétala. O <strong>R</strong> também indica mais informações sobre estas estimativas</p>
+<pre class="r"><code>summary(ajuste)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Sepal.Width ~ Sepal.Length + Petal.Length + Petal.Width, 
+##     data = iris)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.88045 -0.20945  0.01426  0.17942  0.78125 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.04309    0.27058   3.855 0.000173 ***
+## Sepal.Length  0.60707    0.06217   9.765  &lt; 2e-16 ***
+## Petal.Length -0.58603    0.06214  -9.431  &lt; 2e-16 ***
+## Petal.Width   0.55803    0.12256   4.553  1.1e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3038 on 146 degrees of freedom
+## Multiple R-squared:  0.524,  Adjusted R-squared:  0.5142 
+## F-statistic: 53.58 on 3 and 146 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Para cada coordenada de <span class="math inline">\(\beta_j\)</span>, o <strong>R</strong> também indica um p-valor para o teste que <span class="math inline">\(\beta_j = 0\)</span>. Este p-valor é indicado na coluna <span class="math inline">\(Pr(&gt;|t|)\)</span>. A não ser que o nível de significância (<span class="math inline">\(\alpha\)</span>) do teste seja inferior ao p-valor, rejeitamos a hipótese que <span class="math inline">\(\beta_j = 0\)</span>. Por exemplo, se adotarmos o nível de significância de <span class="math inline">\(0.05\)</span>, então todos os p-valores são menores que <span class="math inline">\(\alpha\)</span> e rejeitamos todas as hipóteses de <span class="math inline">\(\beta_j = 0\)</span>.</p>
+<p>Também é possível usarmos variáveis qualitativas para explicar a variação de uma variável resposta quantitativa. Por exemplo, no caso do banco de dados iris, poderíamos explicar como a largura da sépala varia por espécie. De forma intuitiva, podemos observar esta variação por meio de um boxplot:</p>
+<pre class="r"><code>library(tidyverse)
+ggplot(iris) +
+  geom_boxplot(aes(y = Petal.Length,
+                   x = Species))</code></pre>
+<p><img src="/post/aula_10_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Uma forma utilizar uma variável qualitativa como uma variável resposta em uma regressão linear é por meio da criação de <strong>variáveis dummy</strong>. Se uma variável explicativa pode assumir <span class="math inline">\(k\)</span> categorias, então podemos criar <span class="math inline">\(k-1\)</span> colunas na matriz <span class="math inline">\(X\)</span> tais que a <span class="math inline">\(i\)</span>-ésima linha e <span class="math inline">\(j\)</span>-ésima coluna é a indicadora que a variável qualitativa assumiu a categoria <span class="math inline">\(j+1\)</span> na <span class="math inline">\(i\)</span>-ésima unidade amostral. Esta técnica é ilustrada a seguir:</p>
+<pre class="r"><code>exemplos = sample(1:150, 10)
+XX = model.matrix(Petal.Length~Species, data = iris)
+data.frame(Species = iris$Species[exemplos], XX[exemplos,])</code></pre>
+<pre><code>##        Species X.Intercept. Speciesversicolor Speciesvirginica
+## 20      setosa            1                 0                0
+## 127  virginica            1                 0                1
+## 134  virginica            1                 0                1
+## 38      setosa            1                 0                0
+## 51  versicolor            1                 1                0
+## 73  versicolor            1                 1                0
+## 76  versicolor            1                 1                0
+## 149  virginica            1                 0                1
+## 91  versicolor            1                 1                0
+## 69  versicolor            1                 1                0</code></pre>
+<p>Variáveis dummy são criadas automaticamente pela função lm quando uma variável explicativa é um fator. Este procedimento é ilustrado a seguir:</p>
+<pre class="r"><code>ajuste &lt;- lm(Petal.Length~Species,
+             data = iris)
+summary(ajuste)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Length ~ Species, data = iris)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -1.260 -0.258  0.038  0.240  1.348 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        1.46200    0.06086   24.02   &lt;2e-16 ***
+## Speciesversicolor  2.79800    0.08607   32.51   &lt;2e-16 ***
+## Speciesvirginica   4.09000    0.08607   47.52   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4303 on 147 degrees of freedom
+## Multiple R-squared:  0.9414, Adjusted R-squared:  0.9406 
+## F-statistic:  1180 on 2 and 147 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Note que a categoria <em>setosa</em> foi tomada como referência. Neste caso, o intercepto, <span class="math inline">\(1.462\)</span>, é a média estimada para uma unidade amostral desta espécie. Por outro lado, os parâmetros correspondentes a cada outra categoria correspondem ao quanto a média desta categoria difere da média de <em>setosa</em>. Por exemplo, o parâmetro associado a <em>versicolor</em> é 2.798 e, portanto, o modelo estima que, em média, o comprimento da pétala de uma flor da espécie versicolor é 2.798 cm maior que a pétala de uma flor da espécie setosa. Combinando este valor com a estimativa do intercepto, obtemos que o comprimento de uma pétala de uma flor da espécie versicolor mede, em média, <span class="math inline">\(1.462+2.798\)</span> cm.</p>
+<p>É possível realizar uma regressão linear em todas as variáveis presentes em um banco de dados, como ilustrado a seguir</p>
+<pre class="r"><code>ajuste &lt;- lm(Petal.Length~.,
+             data = iris)
+summary(ajuste)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Petal.Length ~ ., data = iris)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.78396 -0.15708  0.00193  0.14730  0.65418 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       -1.11099    0.26987  -4.117 6.45e-05 ***
+## Sepal.Length       0.60801    0.05024  12.101  &lt; 2e-16 ***
+## Sepal.Width       -0.18052    0.08036  -2.246   0.0262 *  
+## Petal.Width        0.60222    0.12144   4.959 1.97e-06 ***
+## Speciesversicolor  1.46337    0.17345   8.437 3.14e-14 ***
+## Speciesvirginica   1.97422    0.24480   8.065 2.60e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2627 on 144 degrees of freedom
+## Multiple R-squared:  0.9786, Adjusted R-squared:  0.9778 
+## F-statistic:  1317 on 5 and 144 DF,  p-value: &lt; 2.2e-16</code></pre>
