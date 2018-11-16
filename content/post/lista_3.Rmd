@@ -1,0 +1,129 @@
+---
+title: "Lista de exercicios 3"
+author: "Rafael Izbicki e Rafael Bassi Stern"
+date: '2018-10-03'
+output: html_document
+bibliography: ipaee.bib
+---
+
+> 1. Considere o banco de dados Boston no **R**,
+que pode ser acessado por meio dos comandos:
+
+```{r warning=FALSE}
+library(MASS)
+data("Boston")
+```
+Mais informações sobre este banco de dados podem 
+ser obtidas por meio do comando **?Boston**.
+
+a. Por meio de uma análise descritiva dos dados,
+compare a variável *medv* com as variáveis
+*crim*, *chas*, *rm*, *age* e *dis*.
+Interprete estas comparações, relacionando-as
+ao comportamento que você esperaria pela
+descrição das variáveis.
+
+b. O código abaixo ajustou uma
+regressão linear simples em que
+a variável resposta é *medv* e
+as variáveis explicativas são
+*crim*, *chas*, *rm*, *age* e *dis*.
+Interprete os parâmetros ajustados.
+Note que *chas* é uma variável discreta.
+
+```{r}
+ajuste = lm(medv~crim+chas+rm+age+dis, data = Boston)
+ajuste
+```
+
+c. A figura abaixo apresenta os resíduos do modelo ajustado
+contra os percentis de uma distribuição normal.
+As suposições do modelo parecem estar satisfeitas?
+
+```{r}
+qqnorm(ajuste$residuals)
+```
+
+d. Ocódigo abaixo adiciona uma interação entre
+as variáveis *rm* e *chas*.
+Interprete o significado desta interação e,
+com base na saída do **R** determine se
+parece plausível que esta interação não é 0.
+
+```{r}
+ajuste = lm(medv~crim+chas+rm+age+dis+rm*chas, data = Boston)
+summary(ajuste)
+```
+
+--------- 
+
+> 2. Considere o banco de dados diamonds no **R**,
+que pode ser acessado por meio dos comandos:
+
+```{r warning = FALSE}
+library(ggplot2)
+data("diamonds")
+```
+
+Mais informações sobre estes dados podem
+ser obitdas pelo comando **?diamonds**.
+
+a. O comando a seguir ajustou um modelo
+de regressão linear simples com interação
+usando como variável resposta
+o preço de cada diamante usando como
+variáveis explicativas 
+o seu peso (em carat) e
+a qualidade do seu corte:
+
+```{r}
+lm(price~carat*cut, data = diamonds)
+```
+
+Interprete os parâmetros ajustados pelo modelo.
+
+b. Usando o modelo ajustado acima,
+qual seria a sua previsão para
+o preço de um diamante com 1 carat
+e de quealidade *cut.L*?
+
+---------
+
+> 3. Considere o banco de dados *iris*,
+que já foi discutido em aulas passadas.
+
+a. O gráfico a seguir exibe o comprimento e largura
+das pétalas de exemplares de diversas espécies de flores.
+Indique como estas medidas se relacionam com a espécie.
+
+```{r warning = FALSE}
+library(dplyr)
+library(ggplot2)
+iris %>% 
+ ggplot(aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point()
+```
+
+b. O código abaixo ajustou uma regressão logística para
+a probabilidade de uma flor ser da espécie virginica.
+Para tal, usou como variáveis explicativas o
+comprimento e largura das pétalas.
+Interprete os parâmetros obtidos.
+
+```{r warning = FALSE}
+iris = iris %>% 
+  mutate(is_virginica = Species == "virginica")
+glm(is_virginica~Petal.Length+Petal.Width, 
+    family = binomial, data = iris)
+```
+
+c. Usando o modelo ajustado acima,
+qual é a probabilidade de uma flor com pétala
+com 6 cm de comprimento e 2 cm de largura ser
+da espécie virginica?
+
+d. Utilizando o modelo ajustado acima,
+determine para quais valores de 
+comprimento e largura da pétala,
+a probabilidade de que a flor é
+da espécie virginica é maior do que 95\%.
