@@ -100,19 +100,8 @@ data(&quot;diamonds&quot;)</code></pre>
 <ol style="list-style-type: lower-alpha">
 <li>O gráfico a seguir exibe o comprimento e largura das pétalas de exemplares de diversas espécies de flores. Indique como estas medidas se relacionam com a espécie.</li>
 </ol>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:MASS&#39;:
-## 
-##     select</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(ggplot2)
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
 iris %&gt;% 
  ggplot(aes(x = Petal.Length, y = Petal.Width, color = Species)) +
   geom_point()</code></pre>

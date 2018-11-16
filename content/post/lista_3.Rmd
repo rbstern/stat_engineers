@@ -96,7 +96,7 @@ a. O gráfico a seguir exibe o comprimento e largura
 das pétalas de exemplares de diversas espécies de flores.
 Indique como estas medidas se relacionam com a espécie.
 
-```{r warning = FALSE}
+```{r message = FALSE, warning = FALSE}
 library(dplyr)
 library(ggplot2)
 iris %>% 
