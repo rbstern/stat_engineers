@@ -1,0 +1,66 @@
+---
+title: "Prova 3"
+author: "Rafael Stern"
+date: '2018-11-21'
+bibliography: ipaee.bib
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+1. O banco de dados iris contém informações sobre
+o comprimento e largura das pétalas e sépalas de 150 flores.
+Um pesquisador buscou explicar o comprimento das pétalas por
+meio da largura das pétalas e do comprimento das sépalas por
+meio de uma regressão linear, da seguinte forma:
+
+```{r}
+ajuste = lm(Petal.Length ~ Petal.Width*Sepal.Length, data = iris)
+round(coefficients(ajuste), 2)
+```
+
+  a. Indique o modelo ajustado pelo pesquisador,
+  bem como as suposições utilizadas neste modelo.
+
+  b. Interprete os parâmetros do modelo ajustado.
+  
+  c. Utilizando o modelo ajustado, determine
+  o comprimento esperado de uma flor cuja pétala
+  tem largura 2 cm e cuja sépala tem comprimento 1.5 cm.
+
+2. Para o banco de dados *iris*, o pesquisador deseja
+determinar se cada flor é ou não da espécie versicolor com 
+base no comprimento e largura das pétalas.
+Para tal, empregou os comandos:
+
+```{r}
+iris$is_versicolor = iris$Species == "versicolor"
+ajuste = glm(is_versicolor ~ Petal.Length + Petal.Width,
+             family = "binomial", data = iris)
+round(coefficients(ajuste), 2)
+```
+
+  a. Indique o modelo ajustado pelo pesquisador e
+  interprete seus parâmetros.
+
+  b. Indique uma razão pela qual o modelo usado pelo pesquisador
+  pode ser preferível a uma regressão linear simples neste caso.
+
+  c. Utilizando o modelo ajustado, determine os valores de
+  comprimento e largura das pétalas tal que 
+  a probabilidade de uma flor ser da espécie versicolor é
+  maior ou igual a $0.95$.
+  Esboce um gráfico.
+  
+  d. Ao teste se o parâmetro ligado ao comprimento da pétala era $0$,
+  o pesquisador encontrou um p-valor de $0.0002$.
+  Explique o significado do p-valor e
+  identifique a conclusão que o pesquisador obteve
+  a um nível de significância de $0.05$.
+
+3. Explique como implementar o algoritmo do
+gradiente ascendente para achar um máximo local da função
+$f(x) = -x^6 + 5x^5 - 3x^4 + 2$.

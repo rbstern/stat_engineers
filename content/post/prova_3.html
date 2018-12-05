@@ -1,0 +1,47 @@
+---
+title: "Prova 3"
+author: "Rafael Stern"
+date: '2018-11-21'
+bibliography: ipaee.bib
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<ol style="list-style-type: decimal">
+<li>O banco de dados iris contém informações sobre o comprimento e largura das pétalas e sépalas de 150 flores. Um pesquisador buscou explicar o comprimento das pétalas por meio da largura das pétalas e do comprimento das sépalas por meio de uma regressão linear, da seguinte forma:</li>
+</ol>
+<pre class="r"><code>ajuste = lm(Petal.Length ~ Petal.Width*Sepal.Length, data = iris)
+round(coefficients(ajuste), 2)</code></pre>
+<pre><code>##              (Intercept)              Petal.Width             Sepal.Length 
+##                    -3.25                     2.97                     0.88 
+## Petal.Width:Sepal.Length 
+##                    -0.22</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Indique o modelo ajustado pelo pesquisador, bem como as suposições utilizadas neste modelo.</p></li>
+<li><p>Interprete os parâmetros do modelo ajustado.</p></li>
+<li><p>Utilizando o modelo ajustado, determine o comprimento esperado de uma flor cuja pétala tem largura 2 cm e cuja sépala tem comprimento 1.5 cm.</p></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Para o banco de dados <em>iris</em>, o pesquisador deseja determinar se cada flor é ou não da espécie versicolor com base no comprimento e largura das pétalas. Para tal, empregou os comandos:</li>
+</ol>
+<pre class="r"><code>iris$is_versicolor = iris$Species == &quot;versicolor&quot;
+ajuste = glm(is_versicolor ~ Petal.Length + Petal.Width,
+             family = &quot;binomial&quot;, data = iris)
+round(coefficients(ajuste), 2)</code></pre>
+<pre><code>##  (Intercept) Petal.Length  Petal.Width 
+##        -2.86         1.56        -3.15</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>Indique o modelo ajustado pelo pesquisador e interprete seus parâmetros.</p></li>
+<li><p>Indique uma razão pela qual o modelo usado pelo pesquisador pode ser preferível a uma regressão linear simples neste caso.</p></li>
+<li><p>Utilizando o modelo ajustado, determine os valores de comprimento e largura das pétalas tal que a probabilidade de uma flor ser da espécie versicolor é maior ou igual a <span class="math inline">\(0.95\)</span>. Esboce um gráfico.</p></li>
+<li><p>Ao teste se o parâmetro ligado ao comprimento da pétala era <span class="math inline">\(0\)</span>, o pesquisador encontrou um p-valor de <span class="math inline">\(0.0002\)</span>. Explique o significado do p-valor e identifique a conclusão que o pesquisador obteve a um nível de significância de <span class="math inline">\(0.05\)</span>.</p></li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>Explique como implementar o algoritmo do gradiente ascendente para achar um máximo local da função <span class="math inline">\(f(x) = -x^6 + 5x^5 - 3x^4 + 2\)</span>.</li>
+</ol>
